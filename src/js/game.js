@@ -35,6 +35,7 @@ var flappy = (function (self) {
                     if (!t._isEnd) {
                         t.jump();
                         $('audio').play();
+                        $('noise').play();
                     } else {
                         window.location.reload();
                     }
@@ -48,14 +49,16 @@ var flappy = (function (self) {
                     util.preventDefaultEvent(e);
                 }
             };
+            document.onkeyup = function(e){
+                $('noise').pause();
+                $('noise').currentTime = 0;
+            };
         },
         dash: function(){
             var t = this;
             if (t._isStart) {
-                t._createTimer(function () {
-                    bird.dash();
-                    pos.judge();
-                });
+                bird.dash();
+                //pos.judge();
             } 
         },
         jump: function () {
@@ -90,6 +93,7 @@ var flappy = (function (self) {
             clearInterval(t._timer);
             t._isEnd = true;
             $('end').style.display = 'block';
+            $('over').play();
             $('audio').pause();
             $('audio').currentTime = 0;
         },
