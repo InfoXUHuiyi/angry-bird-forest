@@ -13,7 +13,8 @@ var flappy = (function (self) {
             var t = this;
 
             //缓存上下柱子位置的换算因子
-            t._factor = option.flowerBottom - option.flowerGapY + 450;
+            //t._factor = option.flowerBottom - option.flowerGapY + 450;
+
             //s表示一个位置，到达这个位置的柱子就是“当前的柱子”，就算是靠近猪了，开始计算猪有没有撞到这根柱子，10是提前量。
             t._s = option.birdLeft + option.birdWidth + 10;
 
@@ -34,7 +35,7 @@ var flappy = (function (self) {
                 if(i % 3 == 0){
                     el.className = 'topflower';
 
-                    var inittop = option.bubbleTop;
+                    var inittop = option.flowerHeight;
                     for(var n = 0; n < 5; n++){
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
@@ -48,7 +49,7 @@ var flappy = (function (self) {
                 else{
                     el.className = 'bottomflower';
 
-                    var initbottom = option.bubbleBottom;
+                    var initbottom = option.bubbleHeight;
                     for(var n = 0; n < 5; n++) {
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
@@ -56,7 +57,7 @@ var flappy = (function (self) {
                         child.style.bottom = initbottom + 'px';
                         child.style.left = option.bubbleLeft + 'px';
                         el.appendChild(child);
-                        initbottom += option.bubbleGapY*2;
+                        initbottom += option.bubbleGapY + option.bubbleHeight*2;
                     }
                 }
 

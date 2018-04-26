@@ -17,6 +17,7 @@ var flappy = (function (self) {
         //开头的空白距离
         safeLift: 500,
 
+        backgroundHeight: 500,
         //地板高度（和图片有关）
         floorHeight: 64,
 
@@ -32,6 +33,7 @@ var flappy = (function (self) {
         // flowerHtml
         //flowerHtml: '<div class="top"></div><div class="bottom"></div>',
         flowerWidth: 60,
+        flowerHeight: 125,
 
         //柱子上下间隔高度
         //flowerGapY: 300,
@@ -43,10 +45,12 @@ var flappy = (function (self) {
         //下柱子的基础定位值
         //flowerBottom: -50
 
-        bubbleGapY: 80,
-        bubbleLeft: 20,
-        bubbleTop: 125,
-        bubbleBottom: 50
+        bubbleWidth: 50,
+        bubbleHeight: 50,
+        bubbleGapY: 150,
+        bubbleLeft: 20
+        //bubbleTop: 125,
+        //bubbleBottom: 50
     };
 
     return self;

@@ -12,7 +12,7 @@
 }
 .flowerWrapper {
     width: 90000px;
-    height: 600px;
+    height: 500px;
     position: absolute;
     z-index: 10;
     top: 0;
@@ -40,7 +40,7 @@
     -moz-background-size:100% 100%;
     position: absolute;
     z-index: 3;
-    bottom: 100px;
+    bottom: 0px;
 }
 .bird { 
     width: 33px; 
@@ -87,7 +87,7 @@
 }
 .start, .end { 
     width: 1000px; 
-    height: 500px; 
+    height: 500px;
     position: absolute; 
     top: 0; 
     left: 0; 

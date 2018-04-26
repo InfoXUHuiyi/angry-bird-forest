@@ -56,23 +56,21 @@ var flappy = (function (self) {
             t.left = 100;
             t.time = 0;
         },
-        //撞到地面时触发
+        // dead after hitting
         _dead: function () {
             this._overCallback.call(this._controller);
         },
-        //撞到地面的处理
+        // falling on the floor
         fall: function () {
             var t = this;
 
-            //摔到地上，修正高度
             t.Y = option.floorHeight;
             t.$bird.style.bottom = t.Y + 'px';
         },
-        //撞到柱子的处理
+        // bird's state after hitting
         hit: function () {
             var t = this;
 
-            //坠落
             var timer = setInterval(function () {
                 t.$bird.style.bottom = t.Y + 'px';
                 if (t.Y <= option.floorHeight) {
