@@ -45,6 +45,12 @@ var flappy = (function (self) {
             t.s = 0;
             t.time = 0;
         },
+        dash: function () {
+            var t = this;
+
+            option.birdLeft = option.birdLeft + 100 + 'px';
+            t.time = 0;
+        },
         //撞到地面时触发
         _dead: function () {
             this._overCallback.call(this._controller);

@@ -1,4 +1,4 @@
-﻿
+
 var flappy = (function (self) {
     'use strict';
 
@@ -30,15 +30,33 @@ var flappy = (function (self) {
             document.onkeydown = function (e) {
                 e = e || event;
                 var currKey = e.keyCode || e.which || e.charCode;
+                //32 == espace
                 if (currKey == 32) {
                     if (!t._isEnd) {
                         t.jump();
+                        $('audio').play();
                     } else {
                         window.location.reload();
                     }
                     util.preventDefaultEvent(e);
                 }
+                //39 == ->
+                if(currKey == 39){
+                    if (!t._isEnd) {
+                        t.dash();
+                    } 
+                    util.preventDefaultEvent(e);
+                }
             };
+        },
+        dash: function(){
+            var t = this;
+            if (t._isStart) {
+                t._createTimer(function () {
+                    bird.dash();
+                    pos.judge();
+                });
+            } 
         },
         jump: function () {
             var t = this;
@@ -72,6 +90,8 @@ var flappy = (function (self) {
             clearInterval(t._timer);
             t._isEnd = true;
             $('end').style.display = 'block';
+            $('audio').pause();
+            $('audio').currentTime = 0;
         },
         _createTimer: function (fn) {
             var t = this;
