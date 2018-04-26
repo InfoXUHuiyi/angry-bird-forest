@@ -1,19 +1,22 @@
-.screen { 
-    width: 1000px; 
-    height: 500px; 
-    background-image: url(../img/background.jpg); 
-    position: relative; 
-    z-index: 1; 
-    margin: 50px auto; 
-    overflow: hidden; 
+.screen {
+    width: 1000px;
+    height: 500px;
+    background-image: url(../img/background.jpg);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: relative;
+    z-index: 1;
+    margin: 50px auto;
+    overflow: hidden;
 }
 .flowerWrapper {
-    width: 90000px; 
-    height: 600px; 
-    position: absolute; 
-    z-index: 10; 
-    top: 0; 
-    left: 0; 
+    width: 90000px;
+    height: 600px;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
 }
 
 .topflower {
@@ -25,7 +28,6 @@
     -moz-background-size:100% 100%;
     position: absolute;
     z-index: 3;
-    left: 0;
     background-position: 0 0;
 }
 
@@ -38,7 +40,6 @@
     -moz-background-size:100% 100%;
     position: absolute;
     z-index: 3;
-    left: 0;
     bottom: 100px;
 }
 .bird { 
@@ -49,9 +50,30 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;
-    position: absolute; 
-    z-index: 100; 
+    position: absolute;
+    z-index: 100;
 }
+
+.bubbleup {
+    width: 50px;
+    height: 50px;
+    background-image: url(../img/bubbleup.png);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: relative;
+}
+
+.bubbledown {
+    width: 50px;
+    height: 50px;
+    background-image: url(../img/bubbledown.jpg);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: relative;
+}
+
 .score { 
     width: 50px; 
     height: 40px; 

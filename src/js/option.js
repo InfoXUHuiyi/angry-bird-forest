@@ -36,12 +36,17 @@ var flappy = (function (self) {
         //柱子上下间隔高度
         //flowerGapY: 300,
         //柱子左右间隔宽度
-        flowerGapX: 200,
+        flowerGapX: 250,
 
         //上柱子的基础定位值（就是top值，和css写法有关）
         flowerTop: -50,
         //下柱子的基础定位值
         //flowerBottom: -50
+
+        bubbleGapY: 80,
+        bubbleLeft: 20,
+        bubbleTop: 125,
+        bubbleBottom: 50
     };
 
     return self;

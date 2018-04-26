@@ -31,12 +31,33 @@ var flappy = (function (self) {
             for (var i = 0, j = option.levels; i < j; i++) {
                 var el = document.createElement('div');
 
-                //el.innerHTML = option.flowerHtml;
                 if(i % 3 == 0){
                     el.className = 'topflower';
+
+                    var inittop = option.bubbleTop;
+                    for(var n = 0; n < 5; n++){
+                        var child = document.createElement('div');
+                        child.id = 'bubble-' + i + n;
+                        child.className = 'bubbledown';
+                        child.style.top = inittop + 'px';
+                        child.style.left = option.bubbleLeft + 'px';
+                        el.appendChild(child);
+                        inittop += option.bubbleGapY;
+                    }
                 }
                 else{
                     el.className = 'bottomflower';
+
+                    var initbottom = option.bubbleBottom;
+                    for(var n = 0; n < 5; n++) {
+                        var child = document.createElement('div');
+                        child.id = 'bubble-' + i + n;
+                        child.className = 'bubbleup';
+                        child.style.bottom = initbottom + 'px';
+                        child.style.left = option.bubbleLeft + 'px';
+                        el.appendChild(child);
+                        initbottom += option.bubbleGapY*2;
+                    }
                 }
 
                 el.id = 'flower-' + i;
@@ -63,7 +84,7 @@ var flappy = (function (self) {
             var t = this,
                 x = Math.random(),
                 h = Math.abs(Math.sin((i+1) * x)) * 290;
-            
+
             return {
                 top: option.flowerTop + h,
                 bottom: t._factor - h
