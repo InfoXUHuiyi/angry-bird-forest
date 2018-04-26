@@ -2,7 +2,7 @@
 var flappy = (function (self) {
     'use strict';
 
-    var pig = self.pig,
+    var bird = self.bird,
         flower = self.flower,
         option = self.option,
         $ = self.util.$;
@@ -13,8 +13,8 @@ var flappy = (function (self) {
 
             t.flowerWrapper = $('flowerWrapper');
             
-            t.pigX1 = option.pigLeft,
-            t.pigX2 = option.pigLeft + option.pigWidth, //猪的左右位置，固定的
+            t.birdX1 = option.birdLeft,
+            t.birdX2 = option.birdLeft + option.birdWidth, //猪的左右位置，固定的
 
             t._controller = controller;
             t._addListener(overCallback);
@@ -31,15 +31,15 @@ var flappy = (function (self) {
                 return;
             }
 
-            t.pigY2 = 600 - pig.Y;
-            t.pigY1 = t.pigY2 - option.pigHeight; //猪的上下位置
+            t.birdY2 = 600 - bird.Y;
+            t.birdY1 = t.birdY2 - option.birdHeight; //猪的上下位置
             t.pY1 = currentFlower.getAttribute('top');
             t.pY2 = currentFlower.getAttribute('bottom');
             t.pX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
             t.pX2 = t.pX1 + option.flowerWidth; //柱子的上下左右位置
 
-            if (option.pigLeft + option.pigWidth >= t.pX1 && option.pigLeft <= t.pX2) {
-                if (t.pigY1 < t.pY1 || t.pigY2 > t.pY2) {
+            if (option.birdLeft + option.birdWidth >= t.pX1 && option.birdLeft <= t.pX2) {
+                if (t.birdY1 < t.pY1 || t.birdY2 > t.pY2) {
                     t._dead();
                 }
             }

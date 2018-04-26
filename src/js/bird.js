@@ -5,43 +5,43 @@ var flappy = (function (self) {
     var option = self.option,
         $ = self.util.$;
 
-    //猪
-    self.pig = {
-        Y: 0, //猪当前高度（底边）
+    //bird
+    self.bird = {
+        Y: 0, //current position of bird(bottom)
         init: function (overCallback, controller) {
             var t = this;
 
-            t.s = 0, //位移
-            t.time = 0, //时间
-            t.$pig = $('pig');
-            t.$pig.style.left = option.pigLeft + 'px';
+            t.s = 0, //displacement
+            t.time = 0, //flying time
+            t.$bird = $('bird');
+            t.$bird.style.left = option.birdLeft + 'px';
             t._controller = controller;
 
             t._addListener(overCallback);
         },
-        //添加监听
+        //keyboard listener
         _addListener: function (overCallback) {
             this._overCallback = overCallback;
         },
-        //启动
+        //start
         start: function () {
             var t = this,
                 interval = option.frequency / 1000;
 
             t.s = option.v0 * t.time - t.time * t.time * option.g * 2; //竖直上抛运动公式
-            t.Y = option.pigY + t.s;
+            t.Y = option.birdY + t.s;
             if (t.Y >= option.floorHeight) {
-                t.$pig.style.bottom = t.Y + 'px';
+                t.$bird.style.bottom = t.Y + 'px';
             } else {
                 t._dead();
             }
             t.time += interval;
         },
-        //跳
+        //jump
         jump: function () {
             var t = this;
 
-            option.pigY = parseInt(t.$pig.style.bottom, 10);
+            option.birdY = parseInt(t.$bird.style.bottom, 10);
             t.s = 0;
             t.time = 0;
         },
@@ -55,7 +55,7 @@ var flappy = (function (self) {
 
             //摔到地上，修正高度
             t.Y = option.floorHeight;
-            t.$pig.style.bottom = t.Y + 'px';
+            t.$bird.style.bottom = t.Y + 'px';
         },
         //撞到柱子的处理
         hit: function () {
@@ -63,7 +63,7 @@ var flappy = (function (self) {
 
             //坠落
             var timer = setInterval(function () {
-                t.$pig.style.bottom = t.Y + 'px';
+                t.$bird.style.bottom = t.Y + 'px';
                 if (t.Y <= option.floorHeight) {
                     clearInterval(timer);
                 }

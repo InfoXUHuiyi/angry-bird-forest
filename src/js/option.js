@@ -21,13 +21,13 @@ var flappy = (function (self) {
         floorHeight: 64,
 
         //猪的宽度
-        pigWidth: 33,
+        birdWidth: 33,
         //猪的高度
-        pigHeight: 30,
+        birdHeight: 30,
         //猪当前高度
-        pigY: 300,
+        birdY: 300,
         //猪距离左边的距离,
-        pigLeft: 80,
+        birdLeft: 80,
 
         // flowerHtml
         //flowerHtml: '<div class="top"></div><div class="bottom"></div>',

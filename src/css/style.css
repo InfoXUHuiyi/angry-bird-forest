@@ -41,12 +41,11 @@
     left: 0;
     bottom: 100px;
 }
-
-.pig {
+.bird { 
     width: 33px; 
     height: 30px; 
     bottom: 300px; 
-    background: url(../img/bird2.png) -3px 0;
+    background: url(../img/bird1.png) -3px 0;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;

@@ -15,7 +15,7 @@ var flappy = (function (self) {
             //缓存上下柱子位置的换算因子
             t._factor = option.flowerBottom - option.flowerGapY + 450;
             //s表示一个位置，到达这个位置的柱子就是“当前的柱子”，就算是靠近猪了，开始计算猪有没有撞到这根柱子，10是提前量。
-            t._s = option.pigLeft + option.pigWidth + 10;
+            t._s = option.birdLeft + option.birdWidth + 10;
 
             t._render();
         },
