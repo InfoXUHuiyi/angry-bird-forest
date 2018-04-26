@@ -3,7 +3,7 @@ var flappy = (function (self) {
     'use strict';
 
     var pig = self.pig,
-        pillar = self.pillar,
+        flower = self.flower,
         pos = self.position,
         util = self.util,
         $ = util.$,
@@ -18,7 +18,7 @@ var flappy = (function (self) {
             t._timer = null;
 
             pig.init(t.fall, t);
-            pillar.init();
+            flower.init();
             pos.init(t.hit, t);
 
             t.addKeyListener();
@@ -40,9 +40,9 @@ var flappy = (function (self) {
                 $('begin').style.display = 'none';
                 t._createTimer(function () {
                     pig.start();
-                    pillar.move();
+                    flower.move();
                     pos.judge();
-                    $('score').innerHTML = pillar.currentId + 1;
+                    $('score').innerHTML = flower.currentId + 1;
                 });
                 t._isStart = true;
             } else {

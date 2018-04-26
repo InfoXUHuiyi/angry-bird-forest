@@ -7,7 +7,7 @@
     margin: 50px auto; 
     overflow: hidden; 
 }
-.pillarWrapper { 
+.flowerWrapper {
     width: 90000px; 
     height: 600px; 
     position: absolute; 
@@ -15,30 +15,34 @@
     top: 0; 
     left: 0; 
 }
-.pillar { 
-    width: 45px; 
-    height: 600px; 
-    position: absolute; 
-    z-index: 11; 
-    top: 0; 
+
+.topflower {
+    width: 93px;
+    height: 128px;
+    background-image: url(../img/topflower.png);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    background-position: 0 0;
 }
-.pillar div { 
-    width: 45px; 
-    height: 600px; 
-    background-image: url(../img/pillar.png); 
-    position: absolute; 
-    z-index: 3; 
-    left: 0; 
+
+.bottomflower {
+    width: 93px;
+    height: 128px;
+    background-image: url(../img/bottomflower.png);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    bottom: 100px;
 }
-.pillar .top { 
-    top: -550px; 
-    background-position: 0 0; 
-}
-.pillar .bottom { 
-    bottom: -500px; 
-    background-position: 0 600px; 
-}
-.pig { 
+
+.pig {
     width: 33px; 
     height: 30px; 
     bottom: 300px; 

@@ -6,20 +6,20 @@ var flappy = (function (self) {
         util = self.util,
         $ = util.$;
 
-    //柱子
-    self.pillar = {
-        currentId: -1, //当前柱子id
+    //flower
+    self.flower = {
+        currentId: -1, // current flower id
         init: function () {
             var t = this;
 
             //缓存上下柱子位置的换算因子
-            t._factor = option.pillarBottom - option.pillarGapY + 450;
+            t._factor = option.flowerBottom - option.flowerGapY + 450;
             //s表示一个位置，到达这个位置的柱子就是“当前的柱子”，就算是靠近猪了，开始计算猪有没有撞到这根柱子，10是提前量。
             t._s = option.pigLeft + option.pigWidth + 10;
 
             t._render();
         },
-        //把柱子渲染到DOM树中
+        // add flowers to DOM
         _render: function () {
             var t = this,
                 initleft = option.safeLift;
@@ -27,56 +27,62 @@ var flappy = (function (self) {
             t.left = 0;
             t.dom = document.createElement('div');
 
-            t.dom.className = t.dom.id = 'pillarWrapper';
+            t.dom.className = t.dom.id = 'flowerWrapper';
             for (var i = 0, j = option.levels; i < j; i++) {
                 var el = document.createElement('div');
 
-                el.innerHTML = option.pillarHtml;
-                el.className = 'pillar';
-                el.id = 'pillar-' + i;
+                //el.innerHTML = option.flowerHtml;
+                if(i % 3 == 0){
+                    el.className = 'topflower';
+                }
+                else{
+                    el.className = 'bottomflower';
+                }
+
+                el.id = 'flower-' + i;
                 el.style.left = initleft + 'px';
 
                 var childs = util.getChilds(el),
-                    topEl = childs[0],
-                    bottomEl = childs[1],
+                    //topEl = childs[0],
+                    //bottomEl = childs[1],
                     pos = t._random(i);
 
-                topEl.style.top = pos.top + 'px';
-                bottomEl.style.bottom = pos.bottom + 'px';
+                //topEl.style.top = pos.top + 'px';
+                //bottomEl.style.bottom = pos.bottom + 'px';
 
-                el.setAttribute('top', 600 + pos.top);
-                el.setAttribute('bottom', 0 - pos.bottom);
+                //el.setAttribute('top', 600 + pos.top);
+                //el.setAttribute('bottom', 0 - pos.bottom);
 
                 t.dom.appendChild(el);
-                initleft += option.pillarGapX;
+                initleft += option.flowerGapX;
             }
             $('screen').appendChild(t.dom);
         },
-        //计算柱子位置
+        // calculate flowers (x,y)
         _random: function (i) {
             var t = this,
                 x = Math.random(),
                 h = Math.abs(Math.sin((i+1) * x)) * 290;
             
             return {
-                top: option.pillarTop + h,
+                top: option.flowerTop + h,
                 bottom: t._factor - h
             };
         },
-        //移动柱子
+        // flowers moving
         move: function () {
             var t = this;
 
             t.dom.style.left = -t.left + 'px';
             t._find(t.left);
 
-            t.left += option.vp;
+            t.left += option.vf;
         },
-        //找到当前的柱子
+        // find current flower
         _find: function (l) {
             var t = this,
-                x = (t._s + l - option.safeLift) / option.pillarGapX,
-                intX = parseInt(x,10); //intX是当前柱子
+                x = (t._s + l - option.safeLift) / option.flowerGapX,
+                intX = parseInt(x,10); // intX is current flower
 
             if (x > 0 && t.currentId != intX && Math.abs(x - intX) < 0.1) {
                 t.currentId = intX;

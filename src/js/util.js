@@ -2,7 +2,6 @@
 var flappy = (function (self) {
     'use strict';
 
-    //工具
     self.util = {
         preventDefaultEvent: function (event) {
             event = window.event || event;
