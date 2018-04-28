@@ -29,40 +29,33 @@ var flappy = (function (self) {
             t.dom = document.createElement('div');
 
             t.dom.className = t.dom.id = 'flowerWrapper';
+            
             for (var i = 0, j = option.levels; i < j; i++) {
                 var el = document.createElement('div');
-
                 if(i % 3 == 0){
                     el.className = 'topflower';
-                    var fl = document.createElement('div');
-                    fl.className = 'fallinglayer';
-                    fl.style.top = option.bubblelayergap + 'px';
-                    el.appendChild(fl);
-                    
-                    var inittop = option.flowerHeight;
-                    for(var n = 0; n < 5; n++){
+                    var initTop = option.flowerHeight - option.bubbleHeight/2;
+                    for(var n = 0; n < option.bubbleNum; n++){
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
                         child.className = 'bubbledown';
-                        child.style.top = inittop + 'px';
-                        fl.appendChild(child);
-                        inittop += option.bubbleGapY;
+                        child.style.top = initTop + 'px';
+                        child.style.visibility = 'hidden';
+                        el.appendChild(child);
+                        initTop += option.bubbleGapY;
                     }
                 }
                 else{
                     el.className = 'bottomflower';
-                    var rl = document.createElement('div');
-                    rl.className = 'risinglayer';
-                    rl.style.bottom = option.bubblelayergap + 'px';
-                    el.appendChild(rl);
-                    var initbottom = option.bubbleHeight;
-                    for(var n = 0; n < 5; n++) {
+                    var initBottom = option.flowerHeight - option.bubbleHeight/2;
+                    for(var n = 0; n < option.bubbleNum; n++) {
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
                         child.className = 'bubbleup';
-                        child.style.bottom = initbottom + 'px';
-                        rl.appendChild(child);
-                        initbottom += option.bubbleGapY + option.bubbleHeight*2;
+                        child.style.bottom = initBottom + 'px';
+                        child.style.visibility = 'hidden';
+                        el.appendChild(child);
+                        initBottom += option.bubbleGapY + option.bubbleHeight*2;   
                     }
                 }
 
@@ -86,7 +79,7 @@ var flappy = (function (self) {
                 h = Math.abs(Math.sin((i+1) * x)) * 290;
 
             return {
-                top: option.flowerTop + h,
+                //top: option.flowerTop + h,
                 bottom: t._factor - h
             };
         },
@@ -102,22 +95,34 @@ var flappy = (function (self) {
         // bubbles rising
         bubblefall: function () {
             var t = this;
-            
-            var fl = document.getElementsByClassName('fallinglayer');
-            for(var i = 0; i < fl.length; i++){                
-                var ttmp = parseInt(fl[i].style.top,10) + option.vb;
-                fl[i].style.top = ttmp +'px';
+            var bubbles = document.getElementsByClassName('bubbledown');
+            for(var i = 0; i < bubbles.length; i++){
+                var tmp = parseInt(bubbles[i].style.top,10) + option.vb;               
+                if(i == 0){
+                    bubbles[i].style.visibility = 'visible';
+                }
+                if(tmp >= (option.backgroundHeight - option.flowerHeight)){
+                    tmp = option.flowerHeight;
+                    bubbles[i].style.visibility = 'visible';
+                }
+                bubbles[i].style.top = tmp + 'px';
             }
         },
         // bubbles rising
         bubblerise: function () {
             var t = this;
-            
-            var rl = document.getElementsByClassName('risinglayer');
-            for(var i = 0; i < rl.length; i++){
-                var btmp = parseInt(rl[i].style.bottom,10) + option.vb;
-                rl[i].style.bottom = btmp +'px';
-            }
+            var bubbles = document.getElementsByClassName('bubbleup');
+            for(var i = 0; i < bubbles.length; i++){
+                var tmp = parseInt(bubbles[i].style.bottom,10) + option.vb;               
+                if(i == 0){
+                    bubbles[i].style.visibility = 'visible';
+                }
+                if(tmp >= (option.backgroundHeight - option.flowerHeight)){
+                    tmp = option.flowerHeight;
+                    bubbles[i].style.visibility = 'visible';
+                }                           
+                bubbles[i].style.bottom = tmp + 'px';
+            }           
         },
         // find current flower
         _find: function (l) {

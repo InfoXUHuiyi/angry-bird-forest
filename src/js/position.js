@@ -46,10 +46,10 @@ var flappy = (function (self) {
                 }
             }
             if(t.birdX2 >= (t.bubbleX1 + option.tolerance) && t.birdX1 <= (t.bubbleX2 - option.tolerance)){ // dead after hitting bubbles
-                var childs = util.getChilds(currentFlower.firstChild);
+                var childs = util.getChilds(currentFlower);
                 var bubbleY1, bubbleY2;
                 if(currentFlower.getAttribute('class') == 'topflower'){ // bubbles falling
-                    for (var i = 0; i < 5; i++) {
+                    for (var i = 0; i < option.bubbleNum; i++) {
                         bubbleY1 = parseInt(childs[i].style.top,10) + i*option.bubbleHeight;
                         bubbleY2 = bubbleY1 + option.bubbleHeight;
                         if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
@@ -57,7 +57,7 @@ var flappy = (function (self) {
                         }
                     }
                 }else{ // bubbles rising
-                    for (var j = 0; j < 5; j++) {
+                    for (var j = 0; j < option.bubbleNum; j++) {
                         bubbleY1 = option.backgroundHeight - parseInt(childs[j].style.bottom,10) - option.flowerHeight +  j*option.bubbleHeight;
                         bubbleY2 = bubbleY1 + option.bubbleHeight;
                         if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {

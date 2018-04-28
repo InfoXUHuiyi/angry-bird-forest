@@ -10,7 +10,7 @@ var flappy = (function (self) {
         v0: 400,
         // flowers moving speed
         vf: 2,
-        vb: 1.5,
+        vb: 1,
         //频率，控制动画帧数，默认20ms
         frequency: 20,
         //关卡数
@@ -37,12 +37,10 @@ var flappy = (function (self) {
         flowerHeight: 125,
         // gap between two flowers
         flowerGapX: 250,
-        //上柱子的基础定位值（就是top值，和css写法有关）
-        flowerTop: -50,
-        bubblelayergap: 0,
+        bubbleNum: 2,
         bubbleWidth: 50,
         bubbleHeight: 50,
-        bubbleGapY: 100,
+        bubbleGapY: 150,
         bubbleLeft: 20
     };
 

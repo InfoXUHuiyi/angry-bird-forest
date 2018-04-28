@@ -55,34 +55,26 @@
     z-index: 100;
 }
 
-.fallinglayer{
-    left: 20px;
-    position: relative;
-}
-
-.risinglayer{
-    left: 20px;
-    position: relative;
-}
-
 .bubbleup {
     width: 50px;
     height: 50px;
+    left: 20px;
     background-image: url(../img/bubbleup.png);
     background-repeat:no-repeat;
     background-size:100% 100%;
     -moz-background-size:100% 100%;
-    position: relative;
+    position: absolute;
 }
 
 .bubbledown {
     width: 50px;
     height: 50px;
+    left: 20px;
     background-image: url(../img/bubbledown.jpg);
     background-repeat:no-repeat;
     background-size:100% 100%;
     -moz-background-size:100% 100%;
-    position: relative;
+    position: absolute;
 }
 
 .score { 
