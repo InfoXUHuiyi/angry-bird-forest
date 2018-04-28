@@ -34,29 +34,16 @@ var flappy = (function (self) {
 
             t.birdY2 = option.backgroundHeight - bird.Y; // bird's top y
             t.birdY1 = t.birdY2 - option.birdHeight; // bird's bottom y
+            t.flowerX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
+            t.flowerX2 = t.flowerX1 + option.flowerWidth; // flower's right x
+            t.bubbleX1 = t.flowerX1 + 25;
+            t.bubbleX2 = t.bubbleX1 + option.bubbleWidth; // bubble's right x
 
-
-            //t.pY1 = currentFlower.getAttribute('top');
-            //t.pY2 = currentFlower.getAttribute('bottom');
-
-
-            /*t.bubbleX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
-            t.bubbleX2 = t.bubbleX1 + option.flowerWidth; // flower's right x
-
-            if (option.birdLeft + option.birdWidth >= t.bubbleX1 && option.birdLeft <= t.bubbleX2) {
-                var childs = util.getChilds(currentFlower);
-                for (var i = 0; i < 5; i++) {
-                    t.bubbleY1 = childs[i].getAttribute('bottom') + option.bubbleHeight;
-                    t.bubbleY2 = childs[i].getAttribute('bottom');
-                    if (t.birdY1 <  bubbleY1 && t.birdY2 >  bubbleY2) {
-                        t._dead();
-                    }
+            if(option.birdLeft + option.birdWidth >= (t.flowerX1 + option.tolerance) && option.birdLeft <= (t.flowerX2 - option.tolerance)){
+                if ((t.birdY1 <= (option.flowerHeight - option.tolerance)) || (t.birdY2 >= (option.backgroundHeight - option.flowerHeight + option.tolerance))) {
+                    t._dead();
                 }
-            }*/
-
-            t.bubbleX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10) + 25;
-            t.bubbleX2 = t.bubbleX1 + option.bubbleWidth; // flower's right x
-            if(option.birdLeft + option.birdWidth >= t.bubbleX1 && option.birdLeft <= t.bubbleX2){
+            }else if(option.birdLeft + option.birdWidth >= (t.bubbleX1 + option.tolerance) && option.birdLeft <= (t.bubbleX2 - option.tolerance)){
                 var childs = util.getChilds(currentFlower);
                 var bubbleY1, bubbleY2;
                 if(currentFlower.getAttribute('class') == 'topflower'){
@@ -64,7 +51,7 @@ var flappy = (function (self) {
                     for (var i = 0; i < 5; i++) {
                         bubbleY1 = parseInt(childs[i].style.top,10) + i*option.bubbleHeight;
                         bubbleY2 = bubbleY1 + option.bubbleHeight;
-                        if ((t.birdY1 < bubbleY2 && t.birdY1 > bubbleY1) || (t.birdY2 >  bubbleY1 && t.birdY2 < bubbleY2)) {
+                        if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
                             t._dead();
                         }
                     }
@@ -72,7 +59,7 @@ var flappy = (function (self) {
                     for (var j = 0; j < 5; j++) {
                         bubbleY1 = option.backgroundHeight - parseInt(childs[j].style.bottom,10) - option.flowerHeight +  j*option.bubbleHeight;
                         bubbleY2 = bubbleY1 + option.bubbleHeight;
-                        if ((t.birdY1 < bubbleY2 && t.birdY1 > bubbleY1) || (t.birdY2 >  bubbleY1 && t.birdY2 < bubbleY2)) {
+                        if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
                             t._dead();
                         }
                     }

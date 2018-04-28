@@ -9,7 +9,8 @@ var flappy = (function (self) {
         //跳跃的初速度，控制猪的弹跳力
         v0: 400,
         // flowers moving speed
-        vf: 2.5,
+        vf: 2,
+        vb: 1.5,
         //频率，控制动画帧数，默认20ms
         frequency: 20,
         //关卡数
@@ -32,6 +33,7 @@ var flappy = (function (self) {
 
         // flowerHtml
         //flowerHtml: '<div class="top"></div><div class="bottom"></div>',
+        tolerance: 10,
         flowerWidth: 60,
         flowerHeight: 125,
 
@@ -47,7 +49,7 @@ var flappy = (function (self) {
 
         bubbleWidth: 50,
         bubbleHeight: 50,
-        bubbleGapY: 150,
+        bubbleGapY: 100,
         bubbleLeft: 20
         //bubbleTop: 125,
         //bubbleBottom: 50
