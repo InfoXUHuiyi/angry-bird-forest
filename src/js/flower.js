@@ -34,29 +34,34 @@ var flappy = (function (self) {
 
                 if(i % 3 == 0){
                     el.className = 'topflower';
-
+                    var fl = document.createElement('div');
+                    fl.className = 'fallinglayer';
+                    fl.style.top = option.bubblelayergap + 'px';
+                    el.appendChild(fl);
+                    
                     var inittop = option.flowerHeight;
                     for(var n = 0; n < 5; n++){
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
                         child.className = 'bubbledown';
                         child.style.top = inittop + 'px';
-                        child.style.left = option.bubbleLeft + 'px';
-                        el.appendChild(child);
+                        fl.appendChild(child);
                         inittop += option.bubbleGapY;
                     }
                 }
                 else{
                     el.className = 'bottomflower';
-
+                    var rl = document.createElement('div');
+                    rl.className = 'risinglayer';
+                    rl.style.bottom = option.bubblelayergap + 'px';
+                    el.appendChild(rl);
                     var initbottom = option.bubbleHeight;
                     for(var n = 0; n < 5; n++) {
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
                         child.className = 'bubbleup';
                         child.style.bottom = initbottom + 'px';
-                        child.style.left = option.bubbleLeft + 'px';
-                        el.appendChild(child);
+                        rl.appendChild(child);
                         initbottom += option.bubbleGapY + option.bubbleHeight*2;
                     }
                 }
@@ -68,12 +73,6 @@ var flappy = (function (self) {
                     //topEl = childs[0],
                     //bottomEl = childs[1],
                     pos = t._random(i);
-
-                //topEl.style.top = pos.top + 'px';
-                //bottomEl.style.bottom = pos.bottom + 'px';
-
-                //el.setAttribute('top', 600 + pos.top);
-                //el.setAttribute('bottom', 0 - pos.bottom);
 
                 t.dom.appendChild(el);
                 initleft += option.flowerGapX;
@@ -99,6 +98,26 @@ var flappy = (function (self) {
             t._find(t.left);
 
             t.left += option.vf;
+        },
+        // bubbles rising
+        bubblefall: function () {
+            var t = this;
+            
+            var fl = document.getElementsByClassName('fallinglayer');
+            for(var i = 0; i < fl.length; i++){                
+                var ttmp = parseInt(fl[i].style.top,10) + option.vb;
+                fl[i].style.top = ttmp +'px';
+            }
+        },
+        // bubbles rising
+        bubblerise: function () {
+            var t = this;
+            
+            var rl = document.getElementsByClassName('risinglayer');
+            for(var i = 0; i < rl.length; i++){
+                var btmp = parseInt(rl[i].style.bottom,10) + option.vb;
+                rl[i].style.bottom = btmp +'px';
+            }
         },
         // find current flower
         _find: function (l) {

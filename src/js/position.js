@@ -36,18 +36,19 @@ var flappy = (function (self) {
             t.birdY1 = t.birdY2 - option.birdHeight; // bird's bottom y
             t.flowerX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
             t.flowerX2 = t.flowerX1 + option.flowerWidth; // flower's right x
-            t.bubbleX1 = t.flowerX1 + 25;
+            t.bubbleX1 = t.flowerX1 + option.bubbleLeft;
             t.bubbleX2 = t.bubbleX1 + option.bubbleWidth; // bubble's right x
 
-            if(option.birdLeft + option.birdWidth >= (t.flowerX1 + option.tolerance) && option.birdLeft <= (t.flowerX2 - option.tolerance)){
+            // dead after hitting flowers
+            if(t.birdX2 >= (t.flowerX1 + option.tolerance) && t.birdX1 <= (t.flowerX2 - option.tolerance)){
                 if ((t.birdY1 <= (option.flowerHeight - option.tolerance)) || (t.birdY2 >= (option.backgroundHeight - option.flowerHeight + option.tolerance))) {
                     t._dead();
                 }
-            }else if(option.birdLeft + option.birdWidth >= (t.bubbleX1 + option.tolerance) && option.birdLeft <= (t.bubbleX2 - option.tolerance)){
-                var childs = util.getChilds(currentFlower);
+            }
+            if(t.birdX2 >= (t.bubbleX1 + option.tolerance) && t.birdX1 <= (t.bubbleX2 - option.tolerance)){ // dead after hitting bubbles
+                var childs = util.getChilds(currentFlower.firstChild);
                 var bubbleY1, bubbleY2;
-                if(currentFlower.getAttribute('class') == 'topflower'){
-
+                if(currentFlower.getAttribute('class') == 'topflower'){ // bubbles falling
                     for (var i = 0; i < 5; i++) {
                         bubbleY1 = parseInt(childs[i].style.top,10) + i*option.bubbleHeight;
                         bubbleY2 = bubbleY1 + option.bubbleHeight;
@@ -55,7 +56,7 @@ var flappy = (function (self) {
                             t._dead();
                         }
                     }
-                }else{
+                }else{ // bubbles rising
                     for (var j = 0; j < 5; j++) {
                         bubbleY1 = option.backgroundHeight - parseInt(childs[j].style.bottom,10) - option.flowerHeight +  j*option.bubbleHeight;
                         bubbleY2 = bubbleY1 + option.bubbleHeight;

@@ -68,6 +68,8 @@ var flappy = (function (self) {
                 t._createTimer(function () {
                     bird.start();
                     flower.move();
+                    flower.bubblefall();
+                    flower.bubblerise();
                     pos.judge();
                     $('score').innerHTML = flower.currentId + 1;
                 });

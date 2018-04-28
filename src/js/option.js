@@ -31,28 +31,19 @@ var flappy = (function (self) {
         //猪距离左边的距离,
         birdLeft: 80,
 
-        // flowerHtml
-        //flowerHtml: '<div class="top"></div><div class="bottom"></div>',
+        // judge hitting tolerance
         tolerance: 10,
         flowerWidth: 60,
         flowerHeight: 125,
-
-        //柱子上下间隔高度
-        //flowerGapY: 300,
-        //柱子左右间隔宽度
+        // gap between two flowers
         flowerGapX: 250,
-
         //上柱子的基础定位值（就是top值，和css写法有关）
         flowerTop: -50,
-        //下柱子的基础定位值
-        //flowerBottom: -50
-
+        bubblelayergap: 0,
         bubbleWidth: 50,
         bubbleHeight: 50,
         bubbleGapY: 100,
         bubbleLeft: 20
-        //bubbleTop: 125,
-        //bubbleBottom: 50
     };
 
     return self;
