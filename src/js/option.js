@@ -19,6 +19,7 @@ var flappy = (function (self) {
         safeLift: 500,
 
         backgroundHeight: 500,
+        backgroundWidth: 1000,
         //地板高度（和图片有关）
         floorHeight: 64,
 

@@ -66,7 +66,8 @@ var flappy = (function (self) {
             if (!t._isStart) {
                 $('start').style.display = 'none';
                 t._createTimer(function () {
-                    bird.start();
+                    bird.start();                  
+                    t.scroll();
                     flower.move();
                     flower.bubblefall();
                     flower.bubblerise();
@@ -89,6 +90,18 @@ var flappy = (function (self) {
 
             t.over();
             bird.fall();
+        },
+        scroll: function () {
+            var bg1 = document.getElementById('bg1');
+            var bg2 = document.getElementById('bg2');
+            var left1 = parseFloat(bg1.style.left,10) - option.vf/3;
+            var left2 = parseFloat(bg2.style.left,10) - option.vf/3; 
+            if(left1 + option.backgroundWidth <= 0){
+                left1 = 0;
+                left2 = option.backgroundWidth;
+            }
+            bg1.style.left = left1 + 'px';
+            bg2.style.left = left2 + 'px';
         },
         over: function () {
             var t = this;

@@ -1,15 +1,24 @@
 .screen {
     width: 1000px;
     height: 500px;
-    background-image: url(../img/background.jpg);
-    background-repeat:no-repeat;
-    background-size:100% 100%;
-    -moz-background-size:100% 100%;
     position: relative;
     z-index: 1;
     margin: 50px auto;
     overflow: hidden;
 }
+
+.background {
+    width: 1000px;
+    height: 500px;
+    background-image: url(../img/background.jpg);
+    background-repeat: repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+}
+
 .flowerWrapper {
     width: 90000px;
     height: 500px;
@@ -28,7 +37,6 @@
     -moz-background-size:100% 100%;
     position: absolute;
     z-index: 3;
-    background-position: 0 0;
 }
 
 .bottomflower {

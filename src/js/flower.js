@@ -94,7 +94,6 @@ var flappy = (function (self) {
         },
         // bubbles rising
         bubblefall: function () {
-            var t = this;
             var bubbles = document.getElementsByClassName('bubbledown');
             for(var i = 0; i < bubbles.length; i++){
                 var tmp = parseInt(bubbles[i].style.top,10) + option.vb;               
@@ -109,8 +108,7 @@ var flappy = (function (self) {
             }
         },
         // bubbles rising
-        bubblerise: function () {
-            var t = this;
+        bubblerise: function () {       
             var bubbles = document.getElementsByClassName('bubbleup');
             for(var i = 0; i < bubbles.length; i++){
                 var tmp = parseInt(bubbles[i].style.bottom,10) + option.vb;               
