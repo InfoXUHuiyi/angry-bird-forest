@@ -41,7 +41,9 @@ var flappy = (function (self) {
 
             // dead after hitting flowers
             if(t.birdX2 >= (t.flowerX1 + option.tolerance) && t.birdX1 <= (t.flowerX2 - option.tolerance)){
-                if ((t.birdY1 <= (option.flowerHeight - option.tolerance)) || (t.birdY2 >= (option.backgroundHeight - option.flowerHeight + option.tolerance))) {
+                if((currentFlower.getAttribute('class') == 'topflower') && (t.birdY1 <= (option.flowerHeight - option.tolerance))){
+                    t._dead();
+                }else if(t.birdY2 >= (option.backgroundHeight - option.flowerHeight + option.tolerance)){
                     t._dead();
                 }
             }
@@ -49,16 +51,16 @@ var flappy = (function (self) {
                 var childs = util.getChilds(currentFlower);
                 var bubbleY1, bubbleY2;
                 if(currentFlower.getAttribute('class') == 'topflower'){ // bubbles falling
-                    for (var i = 0; i < option.bubbleNum; i++) {
-                        bubbleY1 = parseInt(childs[i].style.top,10) + i*option.bubbleHeight;
+                    for (var i = 0; i < option.fallingNum; i++) {
+                        bubbleY1 = parseInt(childs[i].style.top,10);
                         bubbleY2 = bubbleY1 + option.bubbleHeight;
                         if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
                             t._dead();
                         }
                     }
                 }else{ // bubbles rising
-                    for (var j = 0; j < option.bubbleNum; j++) {
-                        bubbleY1 = option.backgroundHeight - parseInt(childs[j].style.bottom,10) - option.flowerHeight +  j*option.bubbleHeight;
+                    for (var j = 0; j < option.risingNum; j++) {
+                        bubbleY1 = option.backgroundHeight - parseInt(childs[j].style.bottom,10) - option.bubbleHeight;
                         bubbleY2 = bubbleY1 + option.bubbleHeight;
                         if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
                             t._dead();

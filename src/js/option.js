@@ -37,7 +37,8 @@ var flappy = (function (self) {
         flowerHeight: 125,
         // gap between two flowers
         flowerGapX: 250,
-        bubbleNum: 2,
+        fallingNum: 2,
+        risingNum: 3,
         bubbleWidth: 50,
         bubbleHeight: 50,
         bubbleGapY: 150,

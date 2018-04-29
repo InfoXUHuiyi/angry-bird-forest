@@ -35,7 +35,7 @@ var flappy = (function (self) {
                 if(i % 3 == 0){
                     el.className = 'topflower';
                     var initTop = option.flowerHeight - option.bubbleHeight/2;
-                    for(var n = 0; n < option.bubbleNum; n++){
+                    for(var n = 0; n < option.fallingNum; n++){
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
                         child.className = 'bubbledown';
@@ -48,7 +48,7 @@ var flappy = (function (self) {
                 else{
                     el.className = 'bottomflower';
                     var initBottom = option.flowerHeight - option.bubbleHeight/2;
-                    for(var n = 0; n < option.bubbleNum; n++) {
+                    for(var n = 0; n < option.risingNum; n++) {
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
                         child.className = 'bubbleup';
@@ -101,7 +101,7 @@ var flappy = (function (self) {
                 if(i == 0){
                     bubbles[i].style.visibility = 'visible';
                 }
-                if(tmp >= (option.backgroundHeight - option.flowerHeight)){
+                if(tmp >= option.backgroundHeight){
                     tmp = option.flowerHeight;
                     bubbles[i].style.visibility = 'visible';
                 }
@@ -117,7 +117,7 @@ var flappy = (function (self) {
                 if(i == 0){
                     bubbles[i].style.visibility = 'visible';
                 }
-                if(tmp >= (option.backgroundHeight - option.flowerHeight)){
+                if(tmp >= option.backgroundHeight){
                     tmp = option.flowerHeight;
                     bubbles[i].style.visibility = 'visible';
                 }                           
