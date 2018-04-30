@@ -65,6 +65,7 @@ var flappy = (function (self) {
             var t = this;
             clearInterval(t._timer);
             $('end').style.display = 'block';
+            // $('dead').style.display = 'block';
         },
         _createTimer: function (fn) {
             var t = this;

@@ -9,6 +9,7 @@ var flappy = (function (self) {
     self.bird = {
         Y: 0, //current position of bird(bottom)
         left:0,
+        liveNb:3,
         init: function (overCallback, controller) {
             var t = this;
 
@@ -23,6 +24,18 @@ var flappy = (function (self) {
         //keyboard listener
         _addListener: function (overCallback) {
             this._overCallback = overCallback;
+        },
+        restart: function(){
+            var t = this;
+
+            option.birdY = 300;
+            if(t.liveNb == 2){
+                t.$bird.style.backgroundImage = "url(./img/bird2.png)";
+            }
+            if(t.liveNb == 1){
+                t.$bird.style.backgroundImage = "url(./img/bird7.png)";
+            }
+            t.start();
         },
         //start
         start: function () {
@@ -46,7 +59,6 @@ var flappy = (function (self) {
             option.birdY = parseInt(t.$bird.style.bottom, 10);
             t.s = 0;
             t.time = 0;
-            //console.log(t.left);
             if(t.left!=0){
                 t.left=0;
             }

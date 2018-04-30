@@ -18,6 +18,7 @@ var flappy = (function (self) {
             t._isStart = false;
             t._isEnd = false;
             t._timer = null;
+            t.chance = false;
 
             bird.init(t.fall, t);
             flower.init();
@@ -36,7 +37,10 @@ var flappy = (function (self) {
                         t.jump();
                         $('audio').play();
                         $('noise').play();
-                    } else {
+                        if(t.chance){
+                            t.refresh();
+                        }
+                    }else {
                         window.location.reload();
                     }
                     util.preventDefaultEvent(e);
@@ -72,7 +76,8 @@ var flappy = (function (self) {
                     flower.bubblefall();
                     flower.bubblerise();
                     pos.judge();
-                    $('score').innerHTML = flower.currentId + 1;
+                    var scores = flower.currentId + 1;
+                    $('score').innerHTML = "score:" + scores;
                 });
                 t._isStart = true;
             } else {
@@ -81,7 +86,7 @@ var flappy = (function (self) {
         },
         hit: function () {
             var t = this;
-
+            
             t.over();
             bird.hit();
         },
@@ -90,6 +95,20 @@ var flappy = (function (self) {
 
             t.over();
             bird.fall();
+        },
+        refresh: function() {
+            var t = this;
+
+            clearInterval(t._timer);
+            $('chance').style.display = 'none';
+            t._isStart = false;
+            t._isEnd = false;
+            
+            bird.restart();
+            flower.currentId = -1;
+            //flower.init();
+            pos.init(t.hit, t);
+            t.chance = false;
         },
         scroll: function () {
             var bg1 = document.getElementById('bg1');
@@ -106,11 +125,23 @@ var flappy = (function (self) {
         over: function () {
             var t = this;
             clearInterval(t._timer);
-            t._isEnd = true;
-            $('end').style.display = 'block';
+            //t._isEnd = true;
+            t.chance = true;
+            //$('end').style.display = 'block';
+            $('chance').style.display = 'block';
+
             $('over').play();
             $('audio').pause();
             $('audio').currentTime = 0;
+
+            bird.liveNb--;
+            $('life').innerHTML = "chance:" + bird.liveNb;
+            
+            if(bird.liveNb==0){
+                t._isEnd = true;
+                $('chance').style.display = 'none';
+                $('end').style.display = 'block';
+            }
         },
         _createTimer: function (fn) {
             var t = this;
