@@ -10,6 +10,8 @@ var flappy = (function (self) {
         util = self.util,
         $ = self.util.$;
 
+    var scoreList = new Array();
+    //scoreList.push(0);
     // game start
     self.game = {
         init: function () {
@@ -28,6 +30,11 @@ var flappy = (function (self) {
         },
         addKeyListener: function () {
             var t = this;
+        
+            // var sound = new Howl({
+            //     src: ['../media/bird.noise.mp3']
+            // });
+
             document.onkeydown = function (e) {
                 e = e || event;
                 var currKey = e.keyCode || e.which || e.charCode;
@@ -35,8 +42,6 @@ var flappy = (function (self) {
                 if (currKey == 32) {
                     if (!t._isEnd) {
                         t.jump();
-                        $('audio').play();
-                        $('noise').play();
                         if(t.chance){
                             t.refresh();
                         }
@@ -54,8 +59,10 @@ var flappy = (function (self) {
                 }
             };
             document.onkeyup = function(e){
-                $('noise').pause();
+               $('noise').pause();
                 $('noise').currentTime = 0;
+                // noise.stop();
+                // noise.seek(0);
             };
         },
         dash: function(){
@@ -76,10 +83,22 @@ var flappy = (function (self) {
                     flower.bubblefall();
                     flower.bubblerise();
                     pos.judge();
+
                     var scores = flower.currentId + 1;
                     $('score').innerHTML = "score:" + scores;
+                    if(scoreList.length != 0){
+                        var last = scoreList[scoreList.length-1];
+                        var higher_score = Math.max(last,scores);
+                        $('higher_score').innerHTML = "higher_score:" + higher_score;
+                    }
+                    else{
+                        var higher_score = scores;
+                        $('higher_score').innerHTML = "higher_score:" + higher_score;
+                    }
                 });
                 t._isStart = true;
+                $('audio').play();
+                $('noise').play();
             } else {
                 bird.jump();
             }
@@ -99,14 +118,15 @@ var flappy = (function (self) {
         refresh: function() {
             var t = this;
 
+            scoreList.push(flower.currentId + 1);
             clearInterval(t._timer);
             $('chance').style.display = 'none';
             t._isStart = false;
             t._isEnd = false;
-            
             bird.restart();
             flower.restart();
             pos.init(t.hit, t);
+            $('start').style.display = 'block';
             t.chance = false;
         },
         scroll: function () {
