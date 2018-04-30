@@ -131,6 +131,17 @@ var flappy = (function (self) {
             if (x > 0 && t.currentId != intX && Math.abs(x - intX) < 0.1) {
                 t.currentId = intX;
             }
+        },
+        restart: function () {
+            var t = this;
+            
+            document.getElementById('bg1').style.left = 0 + 'px';
+            document.getElementById('bg2').style.left = option.backgroundWidth + 'px';
+            
+            var child = document.getElementById('flowerWrapper');
+            document.getElementById("screen").removeChild(child);
+            t.currentId = -1;
+            t.init();
         }
     };
 

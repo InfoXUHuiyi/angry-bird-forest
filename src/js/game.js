@@ -105,8 +105,7 @@ var flappy = (function (self) {
             t._isEnd = false;
             
             bird.restart();
-            flower.currentId = -1;
-            //flower.init();
+            flower.restart();
             pos.init(t.hit, t);
             t.chance = false;
         },
