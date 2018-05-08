@@ -11,7 +11,7 @@ var flappy = (function (self) {
         $ = self.util.$;
 
     var scoreList = new Array();
-    //scoreList.push(0);
+
     // game start
     self.game = {
         init: function () {
@@ -42,19 +42,13 @@ var flappy = (function (self) {
                 if (currKey == 32) {
                     if (!t._isEnd) {
                         t.jump();
+                        
                         if(t.chance){
                             t.refresh();
                         }
                     }else {
                         window.location.reload();
                     }
-                    util.preventDefaultEvent(e);
-                }
-                //39 == ->
-                if(currKey == 39){
-                    if (!t._isEnd) {
-                        t.dash();
-                    } 
                     util.preventDefaultEvent(e);
                 }
             };
@@ -64,13 +58,6 @@ var flappy = (function (self) {
                 // noise.stop();
                 // noise.seek(0);
             };
-        },
-        dash: function(){
-            var t = this;
-            if (t._isStart) {
-                bird.dash();
-                //pos.judge();
-            } 
         },
         jump: function () {
             var t = this;
@@ -83,16 +70,20 @@ var flappy = (function (self) {
                     flower.bubblefall();
                     flower.bubblerise();
                     pos.judge();
-
+                    //score bar
                     var scores = flower.currentId + 1;
+                    var higher_score = 0;
                     $('score').innerHTML = "score:" + scores;
                     if(scoreList.length != 0){
-                        var last = scoreList[scoreList.length-1];
-                        var higher_score = Math.max(last,scores);
+                        for(var s in scoreList){
+                            higher_score = Math.max(scoreList[s],higher_score);                           
+                        }
+                        higher_score = Math.max(higher_score,scores);
+
                         $('higher_score').innerHTML = "higher_score:" + higher_score;
                     }
                     else{
-                        var higher_score = scores;
+                        higher_score = scores;
                         $('higher_score').innerHTML = "higher_score:" + higher_score;
                     }
                 });
@@ -101,7 +92,16 @@ var flappy = (function (self) {
                 $('noise').play();
             } else {
                 bird.jump();
+//                if(bird.Y >= option.backgroundHeight - option.birdHeight){
+//                    t.hit(); 
+//                }
             }
+        },
+        tophit: function(){
+            var t = this;
+            
+            
+            bird.hit();
         },
         hit: function () {
             var t = this;
@@ -118,7 +118,6 @@ var flappy = (function (self) {
         refresh: function() {
             var t = this;
 
-            scoreList.push(flower.currentId + 1);
             clearInterval(t._timer);
             $('chance').style.display = 'none';
             t._isStart = false;
@@ -143,10 +142,9 @@ var flappy = (function (self) {
         },
         over: function () {
             var t = this;
+            scoreList.push(flower.currentId + 1);
             clearInterval(t._timer);
-            //t._isEnd = true;
             t.chance = true;
-            //$('end').style.display = 'block';
             $('chance').style.display = 'block';
 
             $('over').play();

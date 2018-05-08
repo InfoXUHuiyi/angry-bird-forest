@@ -8,13 +8,13 @@ var flappy = (function (self) {
     //bird
     self.bird = {
         Y: 0, //current position of bird(bottom)
-        left:0,
-        liveNb:3,
+        left: 0,
+        liveNb: 3,
         init: function (overCallback, controller) {
             var t = this;
 
-            t.s = 0, //displacement
-            t.time = 0, //flying time
+            t.s = 0; //displacement
+            t.time = 0; //flying time
             t.$bird = $('bird');
             t.$bird.style.left = option.birdLeft + 'px';
             t._controller = controller;
@@ -55,18 +55,13 @@ var flappy = (function (self) {
         //jump
         jump: function () {
             var t = this;
-            
+
             option.birdY = parseInt(t.$bird.style.bottom, 10);
             t.s = 0;
             t.time = 0;
             if(t.left!=0){
                 t.left=0;
             }
-        },
-        dash: function () {
-            var t = this;
-            t.left = 100;
-            t.time = 0;
         },
         // dead after hitting
         _dead: function () {
@@ -79,7 +74,6 @@ var flappy = (function (self) {
             t.Y = option.floorHeight;
             t.$bird.style.bottom = t.Y + 'px';
         },
-        // bird's state after hitting
         hit: function () {
             var t = this;
 

@@ -21,7 +21,7 @@ var flappy = (function (self) {
         backgroundHeight: 500,
         backgroundWidth: 1000,
         //地板高度（和图片有关）
-        floorHeight: 64,
+        floorHeight: 0,
 
         //猪的宽度
         birdWidth: 33,

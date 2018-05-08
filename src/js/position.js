@@ -38,7 +38,10 @@ var flappy = (function (self) {
             t.flowerX2 = t.flowerX1 + option.flowerWidth; // flower's right x
             t.bubbleX1 = t.flowerX1 + option.bubbleLeft;
             t.bubbleX2 = t.bubbleX1 + option.bubbleWidth; // bubble's right x
-
+            //dead if fly over the top
+            if(t.birdY2<=0){
+                t._dead();
+            }
             // dead after hitting flowers
             if(t.birdX2 >= (t.flowerX1 + option.tolerance) && t.birdX1 <= (t.flowerX2 - option.tolerance)){
                 if((currentFlower.getAttribute('class') == 'topflower') && (t.birdY1 <= (option.flowerHeight - option.tolerance))){
@@ -47,7 +50,8 @@ var flappy = (function (self) {
                     t._dead();
                 }
             }
-            if(t.birdX2 >= (t.bubbleX1 + option.tolerance) && t.birdX1 <= (t.bubbleX2 - option.tolerance)){ // dead after hitting bubbles
+            // dead after hitting bubbles
+            if(t.birdX2 >= (t.bubbleX1 + option.tolerance) && t.birdX1 <= (t.bubbleX2 - option.tolerance)){ 
                 var childs = util.getChilds(currentFlower);
                 var bubbleY1, bubbleY2;
                 if(currentFlower.getAttribute('class') == 'topflower'){ // bubbles falling
@@ -69,6 +73,7 @@ var flappy = (function (self) {
                 }
 
             }
+
         },
         // dead after hit
         _dead: function () {
