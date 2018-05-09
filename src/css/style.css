@@ -63,6 +63,14 @@
     z-index: 100;
 }
 
+.boxes {
+    width: 93px;
+    height: 120px;
+    position: absolute;
+    z-index: 3;
+    bottom: 0px;
+}
+
 .box {
     width: 60px;
     height: 60px;
@@ -70,9 +78,8 @@
     background-repeat:no-repeat;
     background-size:100% 100%;
     -moz-background-size:100% 100%;
-    position: absolute;
     z-index: 3;
-
+    position: absolute;
 }
 
 .pig {
@@ -82,9 +89,8 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     -moz-background-size:100% 100%;
-    position: absolute;
     z-index: 3;
-
+    position: absolute;
 }
 
 .bubbleup {

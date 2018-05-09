@@ -25,9 +25,8 @@ var flappy = (function (self) {
             this._overCallback = overCallback;
         },
         judge: function () {
-            var t = this,
-                currentFlower = $('flower-' + flower.currentId);
-            
+            var t = this;
+
             t.birdY2 = option.backgroundHeight - bird.Y; // bird's top y
             t.birdY1 = t.birdY2 - option.birdHeight; // bird's bottom y           
             //dead if fly over the top
@@ -37,45 +36,46 @@ var flappy = (function (self) {
             
             if (flower.currentId == -1) {
                 return;
-            }
+            }else if(flower.currentId % 5 == 0){
+                var currentPig = $('pig-' + parseInt(flower.currentId/5));     
+            }else{
+                var currentFlower = $('flower-' + (flower.currentId - parseInt(flower.currentId/5)));   
+                t.flowerX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
+                t.flowerX2 = t.flowerX1 + option.flowerWidth; // flower's right x
+                t.bubbleX1 = t.flowerX1 + option.bubbleLeft;
+                t.bubbleX2 = t.bubbleX1 + option.bubbleWidth; // bubble's right x
 
-            t.flowerX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
-            t.flowerX2 = t.flowerX1 + option.flowerWidth; // flower's right x
-            t.bubbleX1 = t.flowerX1 + option.bubbleLeft;
-            t.bubbleX2 = t.bubbleX1 + option.bubbleWidth; // bubble's right x
-
-            // dead after hitting flowers
-            if(t.birdX2 >= (t.flowerX1 + option.tolerance) && t.birdX1 <= (t.flowerX2 - option.tolerance)){
-                if((currentFlower.getAttribute('class') == 'topflower') && (t.birdY1 <= (option.flowerHeight - option.tolerance))){
-                    t._dead();
-                }else if(t.birdY2 >= (option.backgroundHeight - option.flowerHeight + option.tolerance)){
-                    t._dead();
-                }
-            }
-            // dead after hitting bubbles
-            if(t.birdX2 >= (t.bubbleX1 + option.tolerance) && t.birdX1 <= (t.bubbleX2 - option.tolerance)){ 
-                var childs = util.getChilds(currentFlower);
-                var bubbleY1, bubbleY2;
-                if(currentFlower.getAttribute('class') == 'topflower'){ // bubbles falling
-                    for (var i = 0; i < option.fallingNum; i++) {
-                        bubbleY1 = parseInt(childs[i].style.top,10);
-                        bubbleY2 = bubbleY1 + option.bubbleHeight;
-                        if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
-                            t._dead();
-                        }
-                    }
-                }else{ // bubbles rising
-                    for (var j = 0; j < option.risingNum; j++) {
-                        bubbleY1 = option.backgroundHeight - parseInt(childs[j].style.bottom,10) - option.bubbleHeight;
-                        bubbleY2 = bubbleY1 + option.bubbleHeight;
-                        if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
-                            t._dead();
-                        }
+                // dead after hitting flowers
+                if(t.birdX2 >= (t.flowerX1 + option.tolerance) && t.birdX1 <= (t.flowerX2 - option.tolerance)){
+                    if((currentFlower.getAttribute('class') == 'topflower') && (t.birdY1 <= (option.flowerHeight - option.tolerance))){
+                        t._dead();
+                    }else if(t.birdY2 >= (option.backgroundHeight - option.flowerHeight + option.tolerance)){
+                        t._dead();
                     }
                 }
-
+                // dead after hitting bubbles
+                if(t.birdX2 >= (t.bubbleX1 + option.tolerance) && t.birdX1 <= (t.bubbleX2 - option.tolerance)){ 
+                    var childs = util.getChilds(currentFlower);
+                    var bubbleY1, bubbleY2;
+                    if(currentFlower.getAttribute('class') == 'topflower'){ // bubbles falling
+                        for (var i = 0; i < option.fallingNum; i++) {
+                            bubbleY1 = parseInt(childs[i].style.top,10);
+                            bubbleY2 = bubbleY1 + option.bubbleHeight;
+                            if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
+                                t._dead();
+                            }
+                        }
+                    }else{ // bubbles rising
+                        for (var j = 0; j < option.risingNum; j++) {
+                            bubbleY1 = option.backgroundHeight - parseInt(childs[j].style.bottom,10) - option.bubbleHeight;
+                            bubbleY2 = bubbleY1 + option.bubbleHeight;
+                            if ((t.birdY1 <= (bubbleY2 - option.tolerance) && t.birdY1 >= bubbleY1) || (t.birdY2 >= (bubbleY1 + option.tolerance) && t.birdY2 <= bubbleY2)) {
+                                t._dead();
+                            }
+                        }
+                    }
+                }              
             }
-
         },
         // dead after hit
         _dead: function () {
