@@ -27,21 +27,23 @@ var flappy = (function (self) {
         judge: function () {
             var t = this,
                 currentFlower = $('flower-' + flower.currentId);
-
+            
+            t.birdY2 = option.backgroundHeight - bird.Y; // bird's top y
+            t.birdY1 = t.birdY2 - option.birdHeight; // bird's bottom y           
+            //dead if fly over the top
+            if(t.birdY1<=0){
+                t._dead();
+            }
+            
             if (flower.currentId == -1) {
                 return;
             }
 
-            t.birdY2 = option.backgroundHeight - bird.Y; // bird's top y
-            t.birdY1 = t.birdY2 - option.birdHeight; // bird's bottom y
             t.flowerX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
             t.flowerX2 = t.flowerX1 + option.flowerWidth; // flower's right x
             t.bubbleX1 = t.flowerX1 + option.bubbleLeft;
             t.bubbleX2 = t.bubbleX1 + option.bubbleWidth; // bubble's right x
-            //dead if fly over the top
-            if(t.birdY2<=0){
-                t._dead();
-            }
+
             // dead after hitting flowers
             if(t.birdX2 >= (t.flowerX1 + option.tolerance) && t.birdX1 <= (t.flowerX2 - option.tolerance)){
                 if((currentFlower.getAttribute('class') == 'topflower') && (t.birdY1 <= (option.flowerHeight - option.tolerance))){
