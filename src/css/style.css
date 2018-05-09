@@ -63,6 +63,30 @@
     z-index: 100;
 }
 
+.box {
+    width: 60px;
+    height: 60px;
+    background-image: url(../img/box1.png);    
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: absolute;
+    z-index: 3;
+
+}
+
+.pig {
+    width: 37px;
+    height: 42px;
+    background-image: url(../img/pig6.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size:100% 100%;
+    position: absolute;
+    z-index: 3;
+
+}
+
 .bubbleup {
     width: 50px;
     height: 50px;

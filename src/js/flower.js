@@ -29,12 +29,39 @@ var flappy = (function (self) {
             t.dom = document.createElement('div');
 
             t.dom.className = t.dom.id = 'flowerWrapper';
-            
+            var q = 0;
             for (var i = 0, j = option.levels; i < j; i++) {
                 var el = document.createElement('div');
-                if(i % 3 == 0){
+                
+                 if (i%5 == 0){
+                     //var n=Math.floor(Math.random()*4+1;
+                 var n= Math.floor(Math.random()*4)+1;
+                     for(var m=0;m<n;m++){
+                       el.className = 'box';
+                     //var initBox = option.boxHeight - option.bubbleHeight/2;
+                    //var initBox = option.floorHeight = option.bubbleHeight/2;
+                     el.id='box'+q+m;
+                     el.style.bottom = 50*(m-1)+'px';
+                     
+                     //var n=Math.floor(Math.random*4)+1;
+                     //for (var m =0;m<n;m++){
+                        // var bbox = document.createElement('div');
+                       //  bbox.id='box'+q+m;
+                        // bbox.className = 'box';
+                        // bbox.style.bottom = m*60+'px';
+                        // el.appendChild(bbox);
+                         var pig = document.createElement('div');
+                         pig.id = 'pig'+q;
+                         pig.className='pig';
+                         pig.style.bottom = n*55+'px';
+                         el.appendChild(pig);
+                     }
+                     q++;
+
+                }else if(i % 3 == 0){
                     el.className = 'topflower';
                     var initTop = option.flowerHeight - option.bubbleHeight/2;
+                          el.id = 'flower-' + i;
                     for(var n = 0; n < option.fallingNum; n++){
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
@@ -43,11 +70,13 @@ var flappy = (function (self) {
                         child.style.visibility = 'hidden';
                         el.appendChild(child);
                         initTop += option.bubbleGapY;
+                     
                     }
                 }
                 else{
                     el.className = 'bottomflower';
                     var initBottom = option.flowerHeight - option.bubbleHeight/2;
+                        el.id = 'flower-' + i;
                     for(var n = 0; n < option.risingNum; n++) {
                         var child = document.createElement('div');
                         child.id = 'bubble-' + i + n;
@@ -56,10 +85,11 @@ var flappy = (function (self) {
                         child.style.visibility = 'hidden';
                         el.appendChild(child);
                         initBottom += option.bubbleGapY + option.bubbleHeight*2;   
+                       
                     }
                 }
 
-                el.id = 'flower-' + i;
+             
                 el.style.left = initleft + 'px';
 
                 var childs = util.getChilds(el),
