@@ -9,7 +9,7 @@ var flappy = (function (self) {
         $ = util.$,
         option = self.option;
 
-    //控制器
+    //controller
     self.controller = {
         init: function () {
             var t = this;
@@ -29,7 +29,14 @@ var flappy = (function (self) {
                 e = e || event;
                 var currKey = e.keyCode || e.which || e.charCode;
                 if (currKey == 32) {
-                    t.jump();
+                    if (!t._isEnd) {
+                        t.jump();
+                        if(t.chance){
+                            t.refresh();
+                        }
+                    }else {
+                        window.location.reload();
+                    }
                     util.preventDefaultEvent(e);
                 }
             };
@@ -63,9 +70,23 @@ var flappy = (function (self) {
         },
         over: function () {
             var t = this;
+//            scoreList.push(flower.currentId + 1);
             clearInterval(t._timer);
-            $('end').style.display = 'block';
-            // $('dead').style.display = 'block';
+            t.chance = true;
+            $('chance').style.display = 'block';
+
+            $('over').play();
+            $('audio').pause();
+            $('audio').currentTime = 0;
+
+            bird.liveNb--;
+            $('life').innerHTML = "chance:" + bird.liveNb;
+            
+            if(bird.liveNb==0){
+                t._isEnd = true;
+                $('chance').style.display = 'none';
+                $('end').style.display = 'block';
+            }
         },
         _createTimer: function (fn) {
             var t = this;
