@@ -1,7 +1,7 @@
 ﻿
 var flappy = (function (self) {
     'use strict';
-
+    
     var bird = self.bird,
         flower = self.flower,
         option = self.option,
@@ -9,6 +9,7 @@ var flappy = (function (self) {
         $ = self.util.$;
 
     self.position = {
+        pigScore: 0,
         init: function (overCallback, controller) {
             var t = this;
 
@@ -17,6 +18,8 @@ var flappy = (function (self) {
             t.birdX1 = option.birdLeft, // bird's left x
             t.birdX2 = option.birdLeft + option.birdWidth,  // bird's right x
 
+            t.pigScore = 0;
+            
             t._controller = controller;
             t._addListener(overCallback);
         },
@@ -40,12 +43,26 @@ var flappy = (function (self) {
                 var currentPig = $('pig-' + parseInt(flower.currentId/5));   
                 t.pigX1 = parseInt(currentPig.parentNode.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
                 t.pigX2 = t.pigX1 + option.birdWidth; // pig's right x
+                //pig's top y
+                t.pigY1 = option.backgroundHeight - parseInt(currentPig.style.bottom,10) - option.pigHeight; 
+                //pig's bottom y
                 t.pigY2 = option.backgroundHeight - parseInt(currentPig.style.bottom,10);
-                
+                                
                   // dead after hitting boxes
                 if(t.birdX2 >= (t.pigX1 + option.tolerance/2) && t.birdX1 <= t.pigX1 && t.birdY1 >= t.pigY2){
                     t._dead();
                 }              
+                
+                
+                
+                if(t.birdX2 >= (t.pigX1 + option.tolerance) && t.birdX1 <= (t.pigX2 - option.tolerance)){
+                   if(t.birdY2 >= (t.pigY1 + option.tolerance)){
+                       currentPig.style.backgroundImage = "url(./img/pigdie.png)";
+                       t.pigScore += 2;
+
+                   }
+                }
+                
             }else{
                 var currentFlower = $('flower-' + (flower.currentId - parseInt(flower.currentId/5)));   
                 t.flowerX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);

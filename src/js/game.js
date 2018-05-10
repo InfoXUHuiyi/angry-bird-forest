@@ -72,18 +72,20 @@ var flappy = (function (self) {
                     pos.judge();
                     //score bar
                     var scores = flower.currentId + 1;
+                    var allScores = scores + pos.pigScore;
                     var higher_score = 0;
-                    $('score').innerHTML = "score:" + scores;
+                    $('score').innerHTML = "score:" + allScores;
+
                     if(scoreList.length != 0){
                         for(var s in scoreList){
                             higher_score = Math.max(scoreList[s],higher_score);                           
                         }
-                        higher_score = Math.max(higher_score,scores);
+                        higher_score = Math.max(higher_score,allScores);
 
                         $('higher_score').innerHTML = "higher_score:" + higher_score;
                     }
                     else{
-                        higher_score = scores;
+                        higher_score = allScores;
                         $('higher_score').innerHTML = "higher_score:" + higher_score;
                     }
                 });
@@ -92,16 +94,7 @@ var flappy = (function (self) {
                 $('noise').play();
             } else {
                 bird.jump();
-//                if(bird.Y >= option.backgroundHeight - option.birdHeight){
-//                    t.hit(); 
-//                }
             }
-        },
-        tophit: function(){
-            var t = this;
-            
-            
-            bird.hit();
         },
         hit: function () {
             var t = this;
@@ -142,7 +135,8 @@ var flappy = (function (self) {
         },
         over: function () {
             var t = this;
-            scoreList.push(flower.currentId + 1);
+            
+            scoreList.push((flower.currentId + 1) + pos.pigScore);
             clearInterval(t._timer);
             t.chance = true;
             $('chance').style.display = 'block';

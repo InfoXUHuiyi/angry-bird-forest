@@ -45,7 +45,10 @@ var flappy = (function (self) {
         bubbleGapY: 150,
         bubbleLeft: 20,
         boxHeight: 55,
-        boxWidth: 55
+        boxWidth: 55,
+        //pig
+        pigWidth: 37,
+        pigHeight: 42
     };
 
     return self;
