@@ -40,6 +40,12 @@ var flappy = (function (self) {
                 var currentPig = $('pig-' + parseInt(flower.currentId/5));   
                 t.pigX1 = parseInt(currentPig.parentNode.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
                 t.pigX2 = t.pigX1 + option.birdWidth; // pig's right x
+                t.pigY2 = option.backgroundHeight - parseInt(currentPig.style.bottom,10);
+                
+                  // dead after hitting boxes
+                if(t.birdX2 >= (t.pigX1 + option.tolerance/2) && t.birdX1 <= t.pigX1 && t.birdY1 >= t.pigY2){
+                    t._dead();
+                }              
             }else{
                 var currentFlower = $('flower-' + (flower.currentId - parseInt(flower.currentId/5)));   
                 t.flowerX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
