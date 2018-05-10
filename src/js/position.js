@@ -37,7 +37,9 @@ var flappy = (function (self) {
             if (flower.currentId == -1) {
                 return;
             }else if(flower.currentId % 5 == 0){
-                var currentPig = $('pig-' + parseInt(flower.currentId/5));     
+                var currentPig = $('pig-' + parseInt(flower.currentId/5));   
+                t.pigX1 = parseInt(currentPig.parentNode.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
+                t.pigX2 = t.pigX1 + option.birdWidth; // pig's right x
             }else{
                 var currentFlower = $('flower-' + (flower.currentId - parseInt(flower.currentId/5)));   
                 t.flowerX1 = parseInt(currentFlower.style.left,10) + parseInt(t.flowerWrapper.style.left,10);
