@@ -19,10 +19,12 @@ let level = 1;
 let imageObj = new Image();
 let tolerance = 10;
 let bgMusic;
+let birdSound;
 
 function init() {
     console.log("page chargee");
-    bgMusic = document.querySelector("#audioPlayer");
+    bgMusic = document.querySelector("#audioBackground");
+    birdSound = document.querySelector("#audioBird");
     playBgMusic();
     
     canvas = document.querySelector("#myCanvas");
@@ -95,6 +97,11 @@ function pauseBgMusic() {
 function reloadBgMusic() {
     bgMusic.load();
     playBgMusic();
+}
+
+// playing bird sound when the bird die
+function playBirdSound() {
+    birdSound.play();
 }
 
 function dessineEtDeplaceLesObjets() {
@@ -307,6 +314,7 @@ function testCollisionJoueurAvecBubbles(){
 
 
 function restart(){
+    playBirdSound();
     pauseBgMusic();
     
     joueur.centerX = joueurPosX;
