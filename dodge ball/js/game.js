@@ -189,7 +189,6 @@ function calculeScores(){
         if((joueur.centerX + joueur.radius > p.centerX - p.radius) && (joueur.centerX - joueur.radius < p.centerX + p.radius)){
             if((joueur.centerY + joueur.radius > p.centerY - p.radius) && (joueur.centerY - joueur.radius < p.centerY + p.radius) ){
                 score += 2;
-                //write code here: kill pig when joueur touch it
                 p.centerX = Math.floor(Math.random()*(canvas.width-canvas.width/2+1)+canvas.width/2);
                 p.centerY = Math.floor(Math.random()*(canvas.height-flowHeight-flowHeight+1)+flowHeight);
             }
@@ -289,7 +288,6 @@ function testCollisionPigs() {
                 p.centerY = Math.floor(Math.random()*(canvas.height-flowHeight-flowHeight+1)+flowHeight);
     }
     })
-    // write code here: reproduce pigs
 }
 
 function testCollisionJoueurAvecMur(){
