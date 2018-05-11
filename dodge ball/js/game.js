@@ -20,12 +20,12 @@ let imageObj = new Image();
 let tolerance = 10;
 let bgMusic;
 let birdSound;
+let start = 'false';
 
 function init() {
     console.log("page chargee");
     bgMusic = document.querySelector("#audioBackground");
     birdSound = document.querySelector("#audioBird");
-    playBgMusic();
     
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext("2d");
@@ -63,12 +63,20 @@ function init() {
   // on demarre l'animation
   requestAnimationFrame(animation);
 }
+
+// press "Space" to start the game
+function startGame(){
+    start = 'true';
+    playBgMusic(); 
+    requestAnimationFrame(animation);
+}
+
 //to move the elements
 function animation() {
   // 1 on efface
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  dessineEtDeplaceLesObjets();
+  dessineEtDeplaceLesObjets(start);
   testCollisions();
     calculeScores();
     changeLevel();
@@ -104,37 +112,57 @@ function playBirdSound() {
     birdSound.play();
 }
 
-function dessineEtDeplaceLesObjets() {
+function dessineEtDeplaceLesObjets(start) {
   drawBackground();
   joueur.draw(ctx);
 //   joueur.move();
   
-  top_flowers.forEach((fl) => {
-    fl.draw(ctx);
-    fl.move();
-  })
-    
-    bottom_flowers.forEach((fl) => {
-    fl.draw(ctx);
-    fl.move();
-  })
-  
-  top_bubbles.forEach((bub) => {
-    bub.draw(ctx);
-    bub.move();
-  })
-  
-  bottom_bubbles.forEach((bub) => {
-    bub.draw(ctx);
-    bub.move();
-  })
-    
-    pigs.forEach((p) => {
-        p.draw(ctx);
-        p.move();
-    })
-  
-  
+    if(start == 'true'){
+        top_flowers.forEach((fl) => {
+            fl.draw(ctx);
+            fl.move();
+        })
+
+        bottom_flowers.forEach((fl) => {
+            fl.draw(ctx);
+            fl.move();
+        })
+
+        top_bubbles.forEach((bub) => {
+            bub.draw(ctx);
+            bub.move();
+        })
+
+        bottom_bubbles.forEach((bub) => {
+            bub.draw(ctx);
+            bub.move();
+        })
+
+        pigs.forEach((p) => {
+            p.draw(ctx);
+            p.move();
+        })     
+    }else{
+        top_flowers.forEach((fl) => {
+            fl.draw(ctx);
+        })
+
+        bottom_flowers.forEach((fl) => {
+            fl.draw(ctx);
+        })
+
+        top_bubbles.forEach((bub) => {
+            bub.draw(ctx);
+        })
+
+        bottom_bubbles.forEach((bub) => {
+            bub.draw(ctx);
+        })
+
+        pigs.forEach((p) => {
+            p.draw(ctx);
+        })
+    }
   
   ctx.font="30px Georgia";
     ctx.fillStyle = "white";
@@ -363,6 +391,9 @@ function restart(){
 function traiteKeydown(evt) {
   let code = evt.code;
   switch(code) {
+    case 'Space':
+      if(start == 'false') startGame();
+      break;
     case 'ArrowUp':
       joueur.centerY -= joueur.vitessMax;
       break;
