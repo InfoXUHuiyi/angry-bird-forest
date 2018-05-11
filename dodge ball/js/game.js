@@ -11,13 +11,23 @@ let pigs = [];
 let score = 0;
 let chance = 3;
 let level = 1;
+let imageObj = new Image();
 
 function init() {
   console.log("page chargee");
-  
-  canvas = document.querySelector("#myCanvas");
-  ctx = canvas.getContext("2d");
-  
+    canvas = document.querySelector("#myCanvas");
+    ctx = canvas.getContext("2d");
+
+    imageObj.src = "img/background.jpg";
+    imageObj.onload = function () {
+        //ctx.save();
+        ctx.drawImage(imageObj, 0, 0, width, height);   
+//        var bg = ctx.createPattern(imageObj, "no-repeat");  
+//        ctx.fillStyle = bg;  
+//        ctx.fillRect(0, 0, width, height);         
+//         ctx.restore();         
+    };    
+    
 //   var bg = new Image();
 //     bg.onload = function(){
 //         ctx.drawImage(bg,0,0,bg.width,bg.height);
@@ -36,7 +46,7 @@ function init() {
 //   window.onkeyup = traiteKeyup;
   
 //   traiteMouseMove();
-  
+
   creerFlowers(6,200);
   creerBubbles(6,230);
     creerPigs(5,800,500);
@@ -55,8 +65,14 @@ function animation() {
   requestAnimationFrame(animation);
 }
 
+function drawBackground(){
+    ctx.save();
+    ctx.drawImage(imageObj, 0, 0, 1000, 500);     
+    ctx.restore();         
+}
+
 function dessineEtDeplaceLesObjets() {
-  
+  drawBackground();
   joueur.draw(ctx);
 //   joueur.move();
   
