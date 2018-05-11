@@ -1,8 +1,13 @@
 window.onload = init;
 
 let canvas, ctx;
-// let joueurPosX;
-// let joueurPosY;
+ let joueurPosX;
+ let joueurPosY;
+let initPosFlow;
+let flowHeight;
+let initPosBub;
+let initPosPigx;
+let initPosPigy;
 let bottom_flowers = [];
 let top_flowers = [];
 let bottom_bubbles = [];
@@ -12,6 +17,7 @@ let score = 0;
 let chance = 3;
 let level = 1;
 let imageObj = new Image();
+let tolerance = 10;
 
 function init() {
   console.log("page chargee");
@@ -21,25 +27,18 @@ function init() {
     imageObj.src = "img/background.jpg";
     imageObj.onload = function () {
         //ctx.save();
-        ctx.drawImage(imageObj, 0, 0, width, height);   
+        ctx.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);   
 //        var bg = ctx.createPattern(imageObj, "no-repeat");  
 //        ctx.fillStyle = bg;  
 //        ctx.fillRect(0, 0, width, height);         
 //         ctx.restore();         
-    };    
-    
-//   var bg = new Image();
-//     bg.onload = function(){
-//         ctx.drawImage(bg,0,0,bg.width,bg.height);
-//     }
-//     //have to change to the local picture
-//     bg.src = "https://d2ujflorbtfzji.cloudfront.net/package-screenshot/97f9e568-7710-4d26-ac47-5d7a4fbe1c25_scaled.jpg";
-    
+    };     
   
 //   joueurPosX = canvas.width;
 //   joueurPosY = canvas.height;
-  
-  joueur = new Circle(50,200,10,0,Math.PI*2,'black');
+  joueurPosX = 50;
+    joueurPosY = 200;
+  joueur = new Circle(joueurPosX,joueurPosY,10,0,Math.PI*2,'red');
 //   joueur = new Circle(joueurPosX,joueurPosY,10,0,Math.PI*2,'black');
 
   window.onkeydown = traiteKeydown;
@@ -47,9 +46,13 @@ function init() {
   
 //   traiteMouseMove();
 
-  creerFlowers(6,200);
-  creerBubbles(6,230);
-    creerPigs(5,800,500);
+  initPosFlow = 200;
+    flowHeight = 60;
+  creerFlowers(6,initPosFlow,flowHeight);
+    initPosBub = 230;
+  creerBubbles(6,initPosBub);
+
+    creerPigs(5);
   
   // on demarre l'animation
   requestAnimationFrame(animation);
@@ -61,6 +64,8 @@ function animation() {
   
   dessineEtDeplaceLesObjets();
   testCollisions();
+    calculeScores();
+    changeLevel();
     
   requestAnimationFrame(animation);
 }
@@ -103,18 +108,47 @@ function dessineEtDeplaceLesObjets() {
   
   
   
-  ctx.font="20px Georgia";
-  ctx.fillText("chance="+chance,0,17);
-  ctx.fillText("level="+level,100,17);
-  ctx.fillText("score="+score,200,17);
+  ctx.font="30px Georgia";
+    ctx.fillStyle = "white";
+  ctx.fillText("chance="+chance,0,30);
+  ctx.fillText("level="+level,155,30);
+  ctx.fillText("score="+score,270,30);
+    
 }
 
+function changeLevel(){
+    if(score % 10 == 0){
+        level = score/10 + 1;
+        top_bubbles.forEach((bub) => {
+            bub.vitessY = level;
+        })
+        bottom_bubbles.forEach((bub) => {
+            bub.vitessY = -level;
+        })
+    }
+}
+
+function calculeScores(){
+    pigs.forEach((p) => {
+        if((joueur.centerX + joueur.radius > p.centerX - p.radius) && (joueur.centerX - joueur.radius < p.centerX + p.radius)){
+            if((joueur.centerY + joueur.radius > p.centerY - p.radius) && (joueur.centerY - joueur.radius < p.centerY + p.radius) ){
+                score += 2;
+                //write code here: kill pig when joueur touch it
+                
+            }
+        }
+    })
+    
+    
+}
+
+let gapWidth = 200;
+let gapTopBottom = 100;
 function creerFlowers(nb,pos){
-    var gapWidth = 200;
-    var gapTopBottom = 100;
+    
   for(var i=0; i<nb; i++){
-    topflow = new Flower((pos+gapTopBottom +i*gapWidth),0,60,60,'pink');
-    downflow = new Flower((pos +i*gapWidth),canvas.height-60,60,60,'pink');
+    topflow = new Flower((pos+gapTopBottom +i*gapWidth),0,60,flowHeight,'pink');
+    downflow = new Flower((pos +i*gapWidth),canvas.height-flowHeight,60,flowHeight,'pink');
     
     topflow.vitesseX = -1;
     downflow.vitesseX = -1;
@@ -125,11 +159,9 @@ function creerFlowers(nb,pos){
 }
 
 function creerBubbles(nb,pos){
-    var gapWidth = 200;
-    var gapTopBottom = 100;
   for(var i=0; i<nb; i++){
     topbub = new Circle((pos+gapTopBottom +i*gapWidth) ,60,20,0,Math.PI*2,'orange');
-    downbub = new Circle((pos +i*gapWidth),canvas.height-60,20,0,Math.PI*2,'cyan');
+    downbub = new Circle((pos +i*gapWidth),canvas.height-60,20,0,Math.PI*2,'yellow');
     topbub.vitessX = -1;
     topbub.vitessY = 1;
     downbub.vitessX = -1;
@@ -140,9 +172,11 @@ function creerBubbles(nb,pos){
   }
 }
 
-function creerPigs(nb,posX,posY){
+function creerPigs(nb){
     for(var i=0; i<nb; i++){
-        pig = new Circle(posX*Math.random(),posY*Math.random(),10,0,Math.PI*2,'green');
+        initPosPigx = Math.floor(Math.random()*(canvas.width-canvas.width/2+1)+canvas.width/2);
+        initPosPigy = Math.floor(Math.random()*(canvas.height-flowHeight-flowHeight+1)+flowHeight);
+        pig = new Circle(initPosPigx,initPosPigy,10,0,Math.PI*2,'cyan');
         pig.vitessX = -1;
         
         pigs.push(pig);
@@ -152,8 +186,10 @@ function creerPigs(nb,posX,posY){
 function testCollisions(){
   testCollisionFlowers();
   testCollisionBubbles();
+    testCollisionPigs();
   testCollisionJoueurAvecMur();
-    testCollisionAvecFlowers();
+    testCollisionJoueurAvecFlowers();
+    testCollisionJoueurAvecBubbles();
 }
 
 function testCollisionFlowers(){
@@ -170,13 +206,12 @@ function testCollisionFlowers(){
 }
 
 function testCollisionBubbles(){
-    var flowh = 60;
   top_bubbles.forEach((bub)=>{
     if(bub.centerX <= -bub.radius){
       bub.centerX = 1180;
     }
     if(bub.centerY >= canvas.height - bub.radius){
-      bub.centerY = bub.radius + flowh;
+      bub.centerY = bub.radius + flowHeight;
     }
   })
   
@@ -185,42 +220,103 @@ function testCollisionBubbles(){
       bub.centerX = 1180;
     }
     if(bub.centerY <= bub.radius){
-      bub.centerY = canvas.height - bub.radius - flowh;
+      bub.centerY = canvas.height - bub.radius - flowHeight;
     }
   })
 }
 
+function testCollisionPigs() {
+    // write code here: reproduce pigs
+}
+
 function testCollisionJoueurAvecMur(){
     if(joueur.centerY < joueur.radius){
-        alert("You have lost 1 chance");
-        location.reload();
+        joueur.centerY = joueur.radius;
     }else if(joueur.centerY > canvas.height - joueur.radius){
-        alert("You have lost 1 chance");
-        location.reload();
+        joueur.centerY = canvas.height - joueur.radius;
     }
   
   if(joueur.centerX <= joueur.radius){
     joueur.centerX = joueur.radius;
-  }else if(joueur.centerX >= canvas.width - joueur.radius){
-    joueur.centerX = canvas.width - joueur.radius;
+  }else if(joueur.centerX >= canvas.width/2 - joueur.radius){
+    joueur.centerX = canvas.width/2 - joueur.radius;
   }
 }
 
-function testCollisionAvecFlowers(){
-//    top_flowers.forEach((fl) => {
-//        if((joueur.centerX > fl.x - joueur.radius) && (joueur.centerX < fl.x + fl.l - joueur.radius)){
-//            if(joueur.centerY < flowh + joueur.radius){
-//                alert("You have lost 1 chance");
-//                location.reload();
-//              }else if(joueur.centerY > canvas.height - flowh - joueur.radius){
-//                  alert("You have lost 1 chance");
-//                  location.reload();
-//              }
-//        }
-//    })
+function testCollisionJoueurAvecFlowers(){
+    top_flowers.forEach((fl) => {
+        if((joueur.centerX + joueur.radius > fl.x) && (joueur.centerX - joueur.radius < fl.x + fl.l)){
+            if((joueur.centerY - joueur.radius < fl.y + fl.h)){
+                restart();
+              }
+        }
+    })
     
-   
+    bottom_flowers.forEach((fl) => {
+        if((joueur.centerX + joueur.radius > fl.x) && (joueur.centerX - joueur.radius < fl.x + fl.l)){
+            if((joueur.centerY + joueur.radius > fl.y)){
+                restart();
+                
+              }
+        }
+    })
+}
+
+function testCollisionJoueurAvecBubbles(){
+    top_bubbles.forEach((bub) => {
+        if((joueur.centerX + joueur.radius > bub.centerX - bub.radius + tolerance) 
+           && (joueur.centerX - joueur.radius < bub.centerX + bub.radius - tolerance)){
+            if((joueur.centerY + joueur.radius > bub.centerY - bub.radius + tolerance) 
+               && ((joueur.centerY - joueur.radius < bub.centerY + bub.radius - tolerance))){
+                restart();
+              }
+        }
+    })
     
+    bottom_bubbles.forEach((bub) => {
+        if((joueur.centerX + joueur.radius > bub.centerX - bub.radius + tolerance) 
+           && (joueur.centerX - joueur.radius < bub.centerX + bub.radius - tolerance)){
+            if((joueur.centerY + joueur.radius > bub.centerY - bub.radius + tolerance) 
+               && ((joueur.centerY - joueur.radius < bub.centerY + bub.radius - tolerance))){
+                restart();
+              }
+        }
+    })
+}
+
+
+function restart(){
+    joueur.centerX = joueurPosX;
+    joueur.centerY = joueurPosY;
+    top_flowers.forEach((fl) => {
+        fl.x = initPosFlow + gapTopBottom + top_flowers.indexOf(fl) * gapWidth;
+    })
+    bottom_flowers.forEach((fl) => {
+        fl.x = initPosFlow + bottom_flowers.indexOf(fl) * gapWidth;;
+    })
+    top_bubbles.forEach((bub) => {
+        bub.centerX = initPosBub + gapTopBottom + top_bubbles.indexOf(bub) * gapWidth;
+    })
+    bottom_bubbles.forEach((bub) => {
+        bub.centerX = initPosBub + bottom_bubbles.indexOf(bub) * gapWidth;
+    })
+    
+    
+    pigs.forEach((p) => {
+        initPosPigx = Math.floor(Math.random()*(canvas.width-canvas.width/2+1)+canvas.width/2);
+        initPosPigy = Math.floor(Math.random()*(canvas.height-flowHeight-flowHeight+1)+flowHeight);
+        
+        p.centerX = initPosPigx;
+        p.centerY = initPosPigy;
+    })
+    
+    if(chance == 1){
+        alert("Game over");
+        location.reload();
+    }else{
+        alert("You have lost 1 chance");
+        chance--;
+    }
 }
 
 //key event
@@ -277,13 +373,7 @@ class Circle{
   
   draw(ctx) {
     ctx.save();
-//     var bird = new Image();
-//     bird.onload = function(){
-//         ctx.drawImage(bird,this.x,this.y);
-//     }
-//     //have to change to the local picture
-//     bird.src = "https://vignette.wikia.nocookie.net/angrybirdsfanon/images/f/f0/Angry_Bird_red.png";
-    
+      
     ctx.beginPath();
     ctx.fillStyle = this.couleur;
     ctx.arc(this.centerX, this.centerY, this.radius, this.startAngle, this.endAngle, false);
