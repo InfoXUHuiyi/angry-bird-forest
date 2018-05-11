@@ -18,9 +18,13 @@ let chance = 3;
 let level = 1;
 let imageObj = new Image();
 let tolerance = 10;
+let bgMusic;
 
 function init() {
-  console.log("page chargee");
+    console.log("page chargee");
+    bgMusic = document.querySelector("#audioPlayer");
+    playBgMusic();
+    
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext("2d");
 
@@ -28,11 +32,11 @@ function init() {
     imageObj.onload = function () {
         //ctx.save();
         ctx.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);   
-//        var bg = ctx.createPattern(imageObj, "no-repeat");  
-//        ctx.fillStyle = bg;  
-//        ctx.fillRect(0, 0, width, height);         
-//         ctx.restore();         
-    };     
+    //        var bg = ctx.createPattern(imageObj, "no-repeat");  
+    //        ctx.fillStyle = bg;  
+    //        ctx.fillRect(0, 0, width, height);         
+    //         ctx.restore();         
+    };
   
 //   joueurPosX = canvas.width;
 //   joueurPosY = canvas.height;
@@ -70,10 +74,27 @@ function animation() {
   requestAnimationFrame(animation);
 }
 
+// drawing background image
 function drawBackground(){
     ctx.save();
     ctx.drawImage(imageObj, 0, 0, 1000, 500);     
     ctx.restore();         
+}
+
+// playing background music
+function playBgMusic() {
+    bgMusic.play();
+}
+
+// background music is paused
+function pauseBgMusic() {
+    bgMusic.pause();  
+}
+
+// reloading background music
+function reloadBgMusic() {
+    bgMusic.load();
+    playBgMusic();
 }
 
 function dessineEtDeplaceLesObjets() {
@@ -286,6 +307,8 @@ function testCollisionJoueurAvecBubbles(){
 
 
 function restart(){
+    pauseBgMusic();
+    
     joueur.centerX = joueurPosX;
     joueur.centerY = joueurPosY;
     top_flowers.forEach((fl) => {
@@ -317,6 +340,8 @@ function restart(){
         alert("You have lost 1 chance");
         chance--;
     }
+    
+    reloadBgMusic();
 }
 
 //key event
