@@ -134,7 +134,8 @@ function calculeScores(){
             if((joueur.centerY + joueur.radius > p.centerY - p.radius) && (joueur.centerY - joueur.radius < p.centerY + p.radius) ){
                 score += 2;
                 //write code here: kill pig when joueur touch it
-                
+                p.centerX = Math.floor(Math.random()*(canvas.width-canvas.width/2+1)+canvas.width/2);
+                p.centerY = Math.floor(Math.random()*(canvas.height-flowHeight-flowHeight+1)+flowHeight);
             }
         }
     })
@@ -226,6 +227,12 @@ function testCollisionBubbles(){
 }
 
 function testCollisionPigs() {
+    pigs.forEach((p) => {
+    if(p.centerX<canvas.width/50){
+                p.centerX = Math.floor(Math.random()*(canvas.width-canvas.width/2+1)+canvas.width/2);
+                p.centerY = Math.floor(Math.random()*(canvas.height-flowHeight-flowHeight+1)+flowHeight);
+    }
+    })
     // write code here: reproduce pigs
 }
 
