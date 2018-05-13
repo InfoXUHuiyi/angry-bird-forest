@@ -25,10 +25,11 @@ let imageBottom = new Image();
 let imageUp = new Image();
 let imageDown = new Image();
 let imagePig = new Image();
-let bgMusic,birdSound,scoreSound,winSound;
+let bgMusic, birdSound, scoreSound, winSound;
 let start = 'false';
 let gapWidth = 200;
 let gapTopBottom = 100;
+let ratio;
 
 function init() {
     console.log("page chargee");
@@ -39,7 +40,7 @@ function init() {
 
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext("2d");
-
+    optimizeDisplay();
     imageObj.src = "img/background.jpg";
 
     //bird parameters
@@ -78,6 +79,8 @@ function startGame() {
 
 //when lost one chance, flowers have to go back to the initial positon
 function restart() {
+    var width = canvas.width / ratio;
+    var height = canvas.height / ratio;
     playBirdSound();
     pauseBgMusic();
 
@@ -104,8 +107,8 @@ function restart() {
     })
 
     pigs.forEach((p) => {
-        initPosPigx = Math.floor(Math.random() * (canvas.width - canvas.width / 2 + 1) + canvas.width / 2);
-        initPosPigy = Math.floor(Math.random() * (canvas.height - flowHeight - flowHeight + 1) + flowHeight);
+        initPosPigx = Math.floor(Math.random() * (width - width / 2 + 1) + width / 2);
+        initPosPigy = Math.floor(Math.random() * (height - flowHeight - flowHeight + 1) + flowHeight);
 
         p.centerX = initPosPigx;
         p.centerY = initPosPigy;
@@ -161,7 +164,7 @@ function changeLevel() {
             bub.vitessY = -level / 3;
         })
     }
-    if(level == 10){
+    if (level == 10) {
         pauseBgMusic();
         winSound.play();
         alert("Congratulations!!!");
@@ -170,14 +173,31 @@ function changeLevel() {
 }
 //if bird touch the pig, earn 2 points and pig disappear
 function calculeScores() {
+    var width = canvas.width / ratio;
+    var height = canvas.height / ratio;
     pigs.forEach((p) => {
         if ((birdX + birdWidth - tolerance > p.centerX - p.radius) && (birdX + tolerance < p.centerX + p.radius)) {
             if ((birdY + birdHeight - tolerance > p.centerY - p.radius) && (birdY + tolerance < p.centerY + p.radius)) {
                 scoreSound.play();
                 score += 2;
-                p.centerX = Math.floor(Math.random() * (canvas.width - canvas.width / 2 + 1) + canvas.width / 2);
-                p.centerY = Math.floor(Math.random() * (canvas.height - flowHeight - flowHeight + 1) + flowHeight);
+                p.centerX = canvas.width / ratio;
+                p.centerY = Math.floor(Math.random() * (height - flowHeight - flowHeight + 1) + flowHeight);
             }
         }
     })
+}
+
+function optimizeDisplay() {
+    var devicePixelRatio = window.devicePixelRatio || 1,
+        backingStoreRatio = ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1;
+
+    ratio = devicePixelRatio / backingStoreRatio;
+
+    var oldWidth = canvas.width;
+    var oldHeight = canvas.height;
+    canvas.width = oldWidth * ratio;
+    canvas.height = oldHeight * ratio;
+    canvas.style.width = oldWidth + 'px';
+    canvas.style.height = oldHeight + 'px';
+    ctx.scale(ratio, ratio);
 }

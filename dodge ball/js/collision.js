@@ -21,11 +21,12 @@ function testCollisionFlowers() {
 }
 //similar test collision with collision flowers
 function testCollisionBubbles() {
+    var height = canvas.height / ratio;
     top_bubbles.forEach((bub) => {
         if (bub.centerX <= -bub.radius) {
             bub.centerX = 1180;
         }
-        if (bub.centerY >= canvas.height + bub.radius) {
+        if (bub.centerY >= height + bub.radius) {
             bub.centerY = bub.radius + flowHeight;
         }
     })
@@ -35,7 +36,7 @@ function testCollisionBubbles() {
             bub.centerX = 1180;
         }
         if (bub.centerY <= -bub.radius) {
-            bub.centerY = canvas.height - bub.radius - flowHeight;
+            bub.centerY = height - bub.radius - flowHeight;
         }
     })
 }
@@ -43,14 +44,15 @@ function testCollisionBubbles() {
 function testCollisionPigs() {
     pigs.forEach((p) => {
         if (p.centerX + p.radius < 0) {
-            p.centerX = Math.floor(Math.random() * (canvas.width - canvas.width / 2 + 1) + canvas.width / 2);
+            //p.centerX = Math.floor(Math.random() * (canvas.width - canvas.width / 2 + 1) + canvas.width / 2);
+            p.centerX = canvas.width / ratio;
             p.centerY = Math.floor(Math.random() * (canvas.height - flowHeight - flowHeight + 1) + flowHeight);
         }
     })
 }
 //if bird touch the edge of canvas
 function testCollisionJoueurAvecMur() {
-    
+
     if (birdY < 0) {
         birdY = 0;
     } else if (birdY + birdHeight > canvas.height) {
@@ -65,7 +67,7 @@ function testCollisionJoueurAvecMur() {
 }
 //if bird touch the flowers
 function testCollisionJoueurAvecFlowers() {
-    
+
     top_flowers.forEach((fl) => {
         if ((birdX + birdWidth - tolerance > fl.x) && (birdX + tolerance < fl.x + fl.l)) {
             if ((birdY + tolerance < fl.y + fl.h)) {
@@ -82,11 +84,11 @@ function testCollisionJoueurAvecFlowers() {
             }
         }
     })
-    
+
 }
 //if bird touch the bubbles
 function testCollisionJoueurAvecBubbles() {
-    
+
     top_bubbles.forEach((bub) => {
         if ((birdX + birdWidth - tolerance > bub.centerX - bub.radius + tolerance) &&
             (birdX + tolerance < bub.centerX + bub.radius - tolerance)) {
