@@ -1,7 +1,7 @@
 window.onload = init;
 
 let canvas, ctx;
-let birdXinit,birdYinit;
+let birdXinit, birdYinit;
 let initPosFlow;
 let flowHeight;
 let initPosBub;
@@ -18,10 +18,13 @@ let level = 1;
 let imageObj = new Image();
 let imageBird = new Image();
 let birdVmax = 20;
-let birdX,birdY,birdWidth,birdHeight;
+let birdX, birdY, birdWidth, birdHeight;
 let tolerance = 8;
 let imageTop = new Image();
 let imageBottom = new Image();
+let imageUp = new Image();
+let imageDown = new Image();
+let imagePig = new Image();
 let bgMusic;
 let birdSound;
 let start = 'false';
@@ -53,8 +56,12 @@ function init() {
     imageTop.src = "img/topflower.png";
     imageBottom.src = "img/bottomflower.png";
     creerFlowers(6, initPosFlow, flowHeight);
+
     initPosBub = 230;
     creerBubbles(6, initPosBub);
+    imageUp.src = "img/bubbleup.png";
+    imageDown.src = "img/bubbledown.jpg";
+    imagePig.src = "img/pig6.png";
     creerPigs(5);
 
     // on demarre l'animation
@@ -72,16 +79,16 @@ function startGame() {
 function restart() {
     playBirdSound();
     pauseBgMusic();
-    
+
     birdX = birdXinit;
     birdY = birdYinit;
-    
-    if(chance == 3){
+
+    if (chance == 3) {
         imageBird.src = "img/bird2.png";
-    }else if(chance == 2){
+    } else if (chance == 2) {
         imageBird.src = "img/bird7.png";
     }
-    
+
     top_flowers.forEach((fl) => {
         fl.x = initPosFlow + gapTopBottom + top_flowers.indexOf(fl) * gapWidth;
     })
@@ -147,16 +154,16 @@ function changeLevel() {
     if (score % 10 == 0) {
         level = score / 10 + 1;
         top_bubbles.forEach((bub) => {
-            bub.vitessY = level/3;
+            bub.vitessY = level / 3;
         })
         bottom_bubbles.forEach((bub) => {
-            bub.vitessY = -level/3;
+            bub.vitessY = -level / 3;
         })
     }
 }
 //if bird touch the pig, earn 2 points and pig disappear
 function calculeScores() {
-    pigs.forEach((p) => {        
+    pigs.forEach((p) => {
         if ((birdX + birdWidth - tolerance > p.centerX - p.radius) && (birdX + tolerance < p.centerX + p.radius)) {
             if ((birdY + birdHeight - tolerance > p.centerY - p.radius) && (birdY + tolerance < p.centerY + p.radius)) {
                 score += 2;

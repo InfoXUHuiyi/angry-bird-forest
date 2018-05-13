@@ -26,17 +26,17 @@ function dessineEtDeplaceLesObjets(start) {
         })
 
         top_bubbles.forEach((bub) => {
-            bub.draw(ctx);
+            bub.drawImg(ctx, imageDown);
             bub.move();
         })
 
         bottom_bubbles.forEach((bub) => {
-            bub.draw(ctx);
+            bub.drawImg(ctx, imageUp);
             bub.move();
         })
 
         pigs.forEach((p) => {
-            p.draw(ctx);
+            p.drawImg(ctx, imagePig);
             p.move();
         })
     } else {
@@ -49,15 +49,15 @@ function dessineEtDeplaceLesObjets(start) {
         })
 
         top_bubbles.forEach((bub) => {
-            bub.draw(ctx);
+            bub.drawImg(ctx, imageDown);
         })
 
         bottom_bubbles.forEach((bub) => {
-            bub.draw(ctx);
+            bub.drawImg(ctx, imageUp);
         })
 
         pigs.forEach((p) => {
-            p.draw(ctx);
+            p.drawImg(ctx, imagePig);
         })
     }
 
