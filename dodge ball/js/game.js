@@ -2,11 +2,8 @@ window.onload = init;
 
 let canvas, ctx;
 let birdXinit, birdYinit;
-let initPosFlow;
+let initPosFlow,initPosBub,initPosPigx,initPosPigy;
 let flowHeight;
-let initPosBub;
-let initPosPigx;
-let initPosPigy;
 let bottom_flowers = [];
 let top_flowers = [];
 let bottom_bubbles = [];
@@ -123,68 +120,6 @@ function restart() {
     }
 
     reloadBgMusic();
-}
-
-// drawing background image
-function drawBackground() {
-    ctx.save();
-    ctx.drawImage(imageObj, 0, 0, 1000, 500);
-    ctx.drawImage(imageBird, birdX, birdY, birdWidth, birdHeight);
-    ctx.restore();
-}
-
-// playing background music
-function playBgMusic() {
-    bgMusic.play();
-}
-
-// background music is paused
-function pauseBgMusic() {
-    bgMusic.pause();
-}
-
-// reloading background music
-function reloadBgMusic() {
-    bgMusic.load();
-    playBgMusic();
-}
-
-// playing bird sound when the bird die
-function playBirdSound() {
-    birdSound.play();
-}
-//10 points will add a level, bubbles speed will increase
-function changeLevel() {
-    if (score % 10 == 0) {
-        level = score / 10 + 1;
-        top_bubbles.forEach((bub) => {
-            bub.vitessY = level / 3;
-        })
-        bottom_bubbles.forEach((bub) => {
-            bub.vitessY = -level / 3;
-        })
-    }
-    if (level == 10) {
-        pauseBgMusic();
-        winSound.play();
-        alert("Congratulations!!!");
-        location.reload();
-    }
-}
-//if bird touch the pig, earn 2 points and pig disappear
-function calculeScores() {
-    var width = canvas.width / ratio;
-    var height = canvas.height / ratio;
-    pigs.forEach((p) => {
-        if ((birdX + birdWidth - tolerance > p.centerX - p.radius) && (birdX + tolerance < p.centerX + p.radius)) {
-            if ((birdY + birdHeight - tolerance > p.centerY - p.radius) && (birdY + tolerance < p.centerY + p.radius)) {
-                scoreSound.play();
-                score += 2;
-                p.centerX = canvas.width / ratio;
-                p.centerY = Math.floor(Math.random() * (height - flowHeight - flowHeight + 1) + flowHeight);
-            }
-        }
-    })
 }
 
 function optimizeDisplay() {

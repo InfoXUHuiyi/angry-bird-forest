@@ -1,4 +1,4 @@
-class Circle {
+class Pig {
     constructor(centerX, centerY, radius, startAngle, endAngle, couleur) {
         this.centerX = centerX || 10;
         this.centerY = centerY || 10;
@@ -9,19 +9,6 @@ class Circle {
         this.vitessX = 0;
         this.vitessY = 0;
         this.vitessMax = 10;
-    }
-
-    draw(ctx) {
-        ctx.save();
-
-        ctx.beginPath();
-        ctx.fillStyle = this.couleur;
-        ctx.arc(this.centerX, this.centerY, this.radius, this.startAngle, this.endAngle, false);
-        ctx.lineWidth = 3;
-        //ctx.stroke();//circle creux
-        ctx.fill(); //circle solide
-
-        ctx.restore();
     }
 
     drawImg(ctx, objectType) {

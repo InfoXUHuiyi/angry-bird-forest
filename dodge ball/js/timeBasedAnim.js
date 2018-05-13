@@ -61,10 +61,5 @@ function dessineEtDeplaceLesObjets(start) {
         })
     }
 
-    //score bar
-    ctx.font = "30px Georgia";
-    ctx.fillStyle = "white";
-    ctx.fillText("chance=" + chance, 0, 30);
-    ctx.fillText("level=" + level, 155, 30);
-    ctx.fillText("score=" + score, 270, 30);
+    scoreBar();
 }

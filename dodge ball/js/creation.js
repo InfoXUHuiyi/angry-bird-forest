@@ -1,3 +1,11 @@
+// drawing background image
+function drawBackground() {
+    ctx.save();
+    ctx.drawImage(imageObj, 0, 0, 1000, 500);
+    ctx.drawImage(imageBird, birdX, birdY, birdWidth, birdHeight);
+    ctx.restore();
+}
+
 function creerFlowers(nb, pos) {
     for (var i = 0; i < nb; i++) {
         topflow = new Flower((pos + gapTopBottom + i * gapWidth), 0, 72, flowHeight, 'pink');
@@ -13,8 +21,8 @@ function creerFlowers(nb, pos) {
 
 function creerBubbles(nb, pos) {
     for (var i = 0; i < nb; i++) {
-        topbub = new Circle((pos + gapTopBottom + i * gapWidth), 60, 20, 0, Math.PI * 2, 'orange');
-        downbub = new Circle((pos + i * gapWidth), canvas.height / ratio - 60, 20, 0, Math.PI * 2, 'yellow');
+        topbub = new Pig((pos + gapTopBottom + i * gapWidth), 60, 20, 0, Math.PI * 2, 'orange');
+        downbub = new Pig((pos + i * gapWidth), canvas.height / ratio - 60, 20, 0, Math.PI * 2, 'yellow');
         topbub.vitessX = -1 / 3;
         topbub.vitessY = 1 / 3;
         downbub.vitessX = -1 / 3;
@@ -31,7 +39,7 @@ function creerPigs(nb) {
     for (var i = 0; i < nb; i++) {
         initPosPigx = Math.floor(Math.random() * (width - width / 2 + 1) + width / 2);
         initPosPigy = Math.floor(Math.random() * (height - flowHeight - flowHeight + 1) + flowHeight);
-        pig = new Circle(initPosPigx, initPosPigy, 14, 0, Math.PI * 2, 'cyan');
+        pig = new Pig(initPosPigx, initPosPigy, 14, 0, Math.PI * 2, 'cyan');
         pig.vitessX = -1 / 2;
 
         pigs.push(pig);
