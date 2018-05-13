@@ -6,7 +6,7 @@ function testCollisions() {
     testCollisionJoueurAvecFlowers();
     testCollisionJoueurAvecBubbles();
 }
-
+//if flowers reach the left edge, they will appear on the right edge
 function testCollisionFlowers() {
     top_flowers.forEach((fl) => {
         if (fl.x <= -fl.l) {
@@ -19,7 +19,7 @@ function testCollisionFlowers() {
         }
     })
 }
-
+//similar test collision with collision flowers
 function testCollisionBubbles() {
     top_bubbles.forEach((bub) => {
         if (bub.centerX <= -bub.radius) {
@@ -39,7 +39,7 @@ function testCollisionBubbles() {
         }
     })
 }
-
+//if pig reach the edge
 function testCollisionPigs() {
     pigs.forEach((p) => {
         if (p.centerX + p.radius < 0) {
@@ -48,56 +48,60 @@ function testCollisionPigs() {
         }
     })
 }
-
+//if bird touch the edge of canvas
 function testCollisionJoueurAvecMur() {
-    if (joueur.centerY < joueur.radius) {
-        joueur.centerY = joueur.radius;
-    } else if (joueur.centerY > canvas.height - joueur.radius) {
-        joueur.centerY = canvas.height - joueur.radius;
+    
+    if (birdY < 0) {
+        birdY = 0;
+    } else if (birdY + birdHeight > canvas.height) {
+        birdY = canvas.height - birdHeight;
     }
 
-    if (joueur.centerX <= joueur.radius) {
-        joueur.centerX = joueur.radius;
-    } else if (joueur.centerX >= canvas.width / 2 - joueur.radius) {
-        joueur.centerX = canvas.width / 2 - joueur.radius;
+    if (birdX < 0) {
+        birdX = 0;
+    } else if (birdX + birdWidth > canvas.width / 2) {
+        birdX = canvas.width / 2 - birdWidth;
     }
 }
-
+//if bird touch the flowers
 function testCollisionJoueurAvecFlowers() {
+    
     top_flowers.forEach((fl) => {
-        if ((joueur.centerX + joueur.radius > fl.x) && (joueur.centerX - joueur.radius < fl.x + fl.l)) {
-            if ((joueur.centerY - joueur.radius < fl.y + fl.h)) {
+        if ((birdX + birdWidth > fl.x) && (birdX < fl.x + fl.l)) {
+            if ((birdY < fl.y + fl.h)) {
                 restart();
             }
         }
     })
 
     bottom_flowers.forEach((fl) => {
-        if ((joueur.centerX + joueur.radius > fl.x) && (joueur.centerX - joueur.radius < fl.x + fl.l)) {
-            if ((joueur.centerY + joueur.radius > fl.y)) {
+        if ((birdX + birdWidth > fl.x) && (birdX < fl.x + fl.l)) {
+            if ((birdY + birdHeight > fl.y)) {
                 restart();
 
             }
         }
     })
+    
 }
-
+//if bird touch the bubbles
 function testCollisionJoueurAvecBubbles() {
+    
     top_bubbles.forEach((bub) => {
-        if ((joueur.centerX + joueur.radius > bub.centerX - bub.radius + tolerance) &&
-            (joueur.centerX - joueur.radius < bub.centerX + bub.radius - tolerance)) {
-            if ((joueur.centerY + joueur.radius > bub.centerY - bub.radius + tolerance) &&
-                ((joueur.centerY - joueur.radius < bub.centerY + bub.radius - tolerance))) {
+        if ((birdX + birdWidth > bub.centerX - bub.radius + tolerance) &&
+            (birdX < bub.centerX + bub.radius - tolerance)) {
+            if ((birdY + birdHeight > bub.centerY - bub.radius + tolerance) &&
+                ((birdY < bub.centerY + bub.radius - tolerance))) {
                 restart();
             }
         }
     })
 
     bottom_bubbles.forEach((bub) => {
-        if ((joueur.centerX + joueur.radius > bub.centerX - bub.radius + tolerance) &&
-            (joueur.centerX - joueur.radius < bub.centerX + bub.radius - tolerance)) {
-            if ((joueur.centerY + joueur.radius > bub.centerY - bub.radius + tolerance) &&
-                ((joueur.centerY - joueur.radius < bub.centerY + bub.radius - tolerance))) {
+        if ((birdX + birdWidth > bub.centerX - bub.radius + tolerance) &&
+            (birdX < bub.centerX + bub.radius - tolerance)) {
+            if ((birdY + birdHeight > bub.centerY - bub.radius + tolerance) &&
+                ((birdY < bub.centerY + bub.radius - tolerance))) {
                 restart();
             }
         }

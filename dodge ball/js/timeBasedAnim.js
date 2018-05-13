@@ -13,8 +13,6 @@ function animation() {
 
 function dessineEtDeplaceLesObjets(start) {
     drawBackground();
-    joueur.draw(ctx);
-    //   joueur.move();
 
     if (start == 'true') {
         top_flowers.forEach((fl) => {
@@ -63,6 +61,7 @@ function dessineEtDeplaceLesObjets(start) {
         })
     }
 
+    //score bar
     ctx.font = "30px Georgia";
     ctx.fillStyle = "white";
     ctx.fillText("chance=" + chance, 0, 30);

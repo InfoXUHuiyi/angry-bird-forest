@@ -6,16 +6,16 @@ function traiteKeydown(evt) {
             if (start == 'false') startGame();
             break;
         case 'ArrowUp':
-            joueur.centerY -= joueur.vitessMax;
+            birdY -= birdVmax;
             break;
         case 'ArrowDown':
-            joueur.centerY += joueur.vitessMax;
+            birdY += birdVmax;
             break;
         case 'ArrowLeft':
-            joueur.centerX -= joueur.vitessMax;
+            birdX -= birdVmax;
             break;
         case 'ArrowRight':
-            joueur.centerX += joueur.vitessMax;
+            birdX += birdVmax;
             break;
     }
 }

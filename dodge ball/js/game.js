@@ -17,6 +17,9 @@ let score = 0;
 let chance = 3;
 let level = 1;
 let imageObj = new Image();
+let imageBird = new Image();
+let birdVmax = 10;
+let birdX,birdY,birdWidth,birdHeight;
 let tolerance = 10;
 let bgMusic;
 let birdSound;
@@ -37,17 +40,19 @@ function init() {
         ctx.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);
     };
 
-    //   joueurPosX = canvas.width;
-    //   joueurPosY = canvas.height;
-    joueurPosX = 50;
-    joueurPosY = 200;
-    joueur = new Circle(joueurPosX, joueurPosY, 10, 0, Math.PI * 2, 'red');
-    //   joueur = new Circle(joueurPosX,joueurPosY,10,0,Math.PI*2,'black');
-
+    //bird parameters
+    birdX = 50;
+    birdY = 150;
+    birdWidth = birdHeight = 50;
+    imageBird.src = "img/bird1.png";
+    imageBird.onload = function(){
+        ctx.drawImage(imageBird,birdX,birdY,birdWidth,birdHeight);
+    }
+    
+    //keyboard event
     window.onkeydown = traiteKeydown;
-    //   window.onkeyup = traiteKeyup;
-    //   traiteMouseMove();
 
+    //flowers and pigs parameters
     initPosFlow = 200;
     flowHeight = 60;
     creerFlowers(6, initPosFlow, flowHeight);
@@ -66,12 +71,11 @@ function startGame() {
     requestAnimationFrame(animation);
 }
 
+//when lost one chance, flowers have to go back to the initial positon
 function restart() {
     playBirdSound();
     pauseBgMusic();
-
-    joueur.centerX = joueurPosX;
-    joueur.centerY = joueurPosY;
+    
     top_flowers.forEach((fl) => {
         fl.x = initPosFlow + gapTopBottom + top_flowers.indexOf(fl) * gapWidth;
     })
@@ -108,6 +112,7 @@ function restart() {
 function drawBackground() {
     ctx.save();
     ctx.drawImage(imageObj, 0, 0, 1000, 500);
+    ctx.drawImage(imageBird,birdX,birdY,birdWidth,birdHeight);
     ctx.restore();
 }
 
@@ -131,7 +136,7 @@ function reloadBgMusic() {
 function playBirdSound() {
     birdSound.play();
 }
-
+//10 points will add a level, bubbles speed will increase
 function changeLevel() {
     if (score % 10 == 0) {
         level = score / 10 + 1;
@@ -143,11 +148,11 @@ function changeLevel() {
         })
     }
 }
-
+//if bird touch the pig, earn 2 points and pig disappear
 function calculeScores() {
-    pigs.forEach((p) => {
-        if ((joueur.centerX + joueur.radius > p.centerX - p.radius) && (joueur.centerX - joueur.radius < p.centerX + p.radius)) {
-            if ((joueur.centerY + joueur.radius > p.centerY - p.radius) && (joueur.centerY - joueur.radius < p.centerY + p.radius)) {
+    pigs.forEach((p) => {        
+        if ((birdX + birdWidth > p.centerX - p.radius) && (birdX < p.centerX + p.radius)) {
+            if ((birdY + birdHeight > p.centerY - p.radius) && (birdY < p.centerY + p.radius)) {
                 score += 2;
                 p.centerX = Math.floor(Math.random() * (canvas.width - canvas.width / 2 + 1) + canvas.width / 2);
                 p.centerY = Math.floor(Math.random() * (canvas.height - flowHeight - flowHeight + 1) + flowHeight);
