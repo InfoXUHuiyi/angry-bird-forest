@@ -17,7 +17,7 @@ let chance = 3;
 let level = 1;
 let imageObj = new Image();
 let imageBird = new Image();
-let birdVmax = 20;
+let birdVmax = 25;
 let birdX, birdY, birdWidth, birdHeight;
 let tolerance = 8;
 let imageTop = new Image();
@@ -44,7 +44,7 @@ function init() {
     //bird parameters
     birdX = birdXinit = 50;
     birdY = birdYinit = 150;
-    birdWidth = birdHeight = 40;
+    birdWidth = birdHeight = 30;
     imageBird.src = "img/bird1.png";
 
     //keyboard event

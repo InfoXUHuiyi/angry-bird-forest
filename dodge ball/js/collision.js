@@ -25,7 +25,7 @@ function testCollisionBubbles() {
         if (bub.centerX <= -bub.radius) {
             bub.centerX = 1180;
         }
-        if (bub.centerY >= canvas.height - bub.radius) {
+        if (bub.centerY >= canvas.height + bub.radius) {
             bub.centerY = bub.radius + flowHeight;
         }
     })
@@ -34,7 +34,7 @@ function testCollisionBubbles() {
         if (bub.centerX <= -bub.radius) {
             bub.centerX = 1180;
         }
-        if (bub.centerY <= bub.radius) {
+        if (bub.centerY <= -bub.radius) {
             bub.centerY = canvas.height - bub.radius - flowHeight;
         }
     })
