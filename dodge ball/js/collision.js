@@ -44,25 +44,25 @@ function testCollisionBubbles() {
 function testCollisionPigs() {
     pigs.forEach((p) => {
         if (p.centerX + p.radius < 0) {
-            //p.centerX = Math.floor(Math.random() * (canvas.width - canvas.width / 2 + 1) + canvas.width / 2);
             p.centerX = canvas.width / ratio;
-            p.centerY = Math.floor(Math.random() * (canvas.height - flowHeight - flowHeight + 1) + flowHeight);
+            p.centerY = Math.floor(Math.random() * (canvas.height / ratio - flowHeight - flowHeight + 1) + flowHeight);
         }
     })
 }
 //if bird touch the edge of canvas
 function testCollisionJoueurAvecMur() {
-
+    var width = canvas.width / ratio;
+    var height = canvas.height / ratio;
     if (birdY < 0) {
         birdY = 0;
-    } else if (birdY + birdHeight > canvas.height) {
-        birdY = canvas.height - birdHeight;
+    } else if (birdY + birdHeight > height) {
+        birdY = height - birdHeight;
     }
 
     if (birdX < 0) {
         birdX = 0;
-    } else if (birdX + birdWidth > canvas.width / 2) {
-        birdX = canvas.width / 2 - birdWidth;
+    } else if (birdX + birdWidth > width / 2) {
+        birdX = width / 2 - birdWidth;
     }
 }
 //if bird touch the flowers
