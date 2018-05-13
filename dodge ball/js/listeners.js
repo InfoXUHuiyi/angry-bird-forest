@@ -6,16 +6,16 @@ function traiteKeydown(evt) {
             if (start == 'false') startGame();
             break;
         case 'ArrowUp':
-            birdY -= birdVmax;
+            if (start == 'true') birdY -= birdVmax;
             break;
         case 'ArrowDown':
-            birdY += birdVmax;
+            if (start == 'true') birdY += birdVmax;
             break;
         case 'ArrowLeft':
-            birdX -= birdVmax;
+            if (start == 'true') birdX -= birdVmax;
             break;
         case 'ArrowRight':
-            birdX += birdVmax;
+            if (start == 'true') birdX += birdVmax;
             break;
     }
 }

@@ -1,8 +1,7 @@
 window.onload = init;
 
 let canvas, ctx;
-let joueurPosX;
-let joueurPosY;
+let birdXinit,birdYinit;
 let initPosFlow;
 let flowHeight;
 let initPosBub;
@@ -18,9 +17,9 @@ let chance = 3;
 let level = 1;
 let imageObj = new Image();
 let imageBird = new Image();
-let birdVmax = 10;
+let birdVmax = 20;
 let birdX,birdY,birdWidth,birdHeight;
-let tolerance = 10;
+let tolerance = 8;
 let bgMusic;
 let birdSound;
 let start = 'false';
@@ -41,9 +40,9 @@ function init() {
     };
 
     //bird parameters
-    birdX = 50;
-    birdY = 150;
-    birdWidth = birdHeight = 50;
+    birdX = birdXinit = 50;
+    birdY = birdYinit = 150;
+    birdWidth = birdHeight = 40;
     imageBird.src = "img/bird1.png";
     imageBird.onload = function(){
         ctx.drawImage(imageBird,birdX,birdY,birdWidth,birdHeight);
@@ -75,6 +74,15 @@ function startGame() {
 function restart() {
     playBirdSound();
     pauseBgMusic();
+    
+    birdX = birdXinit;
+    birdY = birdYinit;
+    
+    if(chance == 3){
+        imageBird.src = "img/bird2.png";
+    }else if(chance == 2){
+        imageBird.src = "img/bird7.png";
+    }
     
     top_flowers.forEach((fl) => {
         fl.x = initPosFlow + gapTopBottom + top_flowers.indexOf(fl) * gapWidth;
@@ -141,18 +149,18 @@ function changeLevel() {
     if (score % 10 == 0) {
         level = score / 10 + 1;
         top_bubbles.forEach((bub) => {
-            bub.vitessY = level;
+            bub.vitessY = level/3;
         })
         bottom_bubbles.forEach((bub) => {
-            bub.vitessY = -level;
+            bub.vitessY = -level/3;
         })
     }
 }
 //if bird touch the pig, earn 2 points and pig disappear
 function calculeScores() {
     pigs.forEach((p) => {        
-        if ((birdX + birdWidth > p.centerX - p.radius) && (birdX < p.centerX + p.radius)) {
-            if ((birdY + birdHeight > p.centerY - p.radius) && (birdY < p.centerY + p.radius)) {
+        if ((birdX + birdWidth - tolerance > p.centerX - p.radius) && (birdX + tolerance < p.centerX + p.radius)) {
+            if ((birdY + birdHeight - tolerance > p.centerY - p.radius) && (birdY + tolerance < p.centerY + p.radius)) {
                 score += 2;
                 p.centerX = Math.floor(Math.random() * (canvas.width - canvas.width / 2 + 1) + canvas.width / 2);
                 p.centerY = Math.floor(Math.random() * (canvas.height - flowHeight - flowHeight + 1) + flowHeight);

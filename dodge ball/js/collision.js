@@ -67,16 +67,16 @@ function testCollisionJoueurAvecMur() {
 function testCollisionJoueurAvecFlowers() {
     
     top_flowers.forEach((fl) => {
-        if ((birdX + birdWidth > fl.x) && (birdX < fl.x + fl.l)) {
-            if ((birdY < fl.y + fl.h)) {
+        if ((birdX + birdWidth - tolerance > fl.x) && (birdX + tolerance < fl.x + fl.l)) {
+            if ((birdY + tolerance < fl.y + fl.h)) {
                 restart();
             }
         }
     })
 
     bottom_flowers.forEach((fl) => {
-        if ((birdX + birdWidth > fl.x) && (birdX < fl.x + fl.l)) {
-            if ((birdY + birdHeight > fl.y)) {
+        if ((birdX + birdWidth - tolerance > fl.x) && (birdX + tolerance < fl.x + fl.l)) {
+            if ((birdY + birdHeight - tolerance > fl.y)) {
                 restart();
 
             }
@@ -88,20 +88,20 @@ function testCollisionJoueurAvecFlowers() {
 function testCollisionJoueurAvecBubbles() {
     
     top_bubbles.forEach((bub) => {
-        if ((birdX + birdWidth > bub.centerX - bub.radius + tolerance) &&
-            (birdX < bub.centerX + bub.radius - tolerance)) {
-            if ((birdY + birdHeight > bub.centerY - bub.radius + tolerance) &&
-                ((birdY < bub.centerY + bub.radius - tolerance))) {
+        if ((birdX + birdWidth - tolerance > bub.centerX - bub.radius + tolerance) &&
+            (birdX + tolerance < bub.centerX + bub.radius - tolerance)) {
+            if ((birdY + birdHeight - tolerance > bub.centerY - bub.radius + tolerance) &&
+                ((birdY + tolerance < bub.centerY + bub.radius - tolerance))) {
                 restart();
             }
         }
     })
 
     bottom_bubbles.forEach((bub) => {
-        if ((birdX + birdWidth > bub.centerX - bub.radius + tolerance) &&
-            (birdX < bub.centerX + bub.radius - tolerance)) {
-            if ((birdY + birdHeight > bub.centerY - bub.radius + tolerance) &&
-                ((birdY < bub.centerY + bub.radius - tolerance))) {
+        if ((birdX + birdWidth - tolerance > bub.centerX - bub.radius + tolerance) &&
+            (birdX + tolerance < bub.centerX + bub.radius - tolerance)) {
+            if ((birdY + birdHeight - tolerance > bub.centerY - bub.radius + tolerance) &&
+                ((birdY + tolerance < bub.centerY + bub.radius - tolerance))) {
                 restart();
             }
         }
