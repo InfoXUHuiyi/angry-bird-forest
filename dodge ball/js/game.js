@@ -25,8 +25,7 @@ let imageBottom = new Image();
 let imageUp = new Image();
 let imageDown = new Image();
 let imagePig = new Image();
-let bgMusic;
-let birdSound;
+let bgMusic,birdSound,scoreSound,winSound;
 let start = 'false';
 let gapWidth = 200;
 let gapTopBottom = 100;
@@ -35,6 +34,8 @@ function init() {
     console.log("page chargee");
     bgMusic = document.querySelector("#audioBackground");
     birdSound = document.querySelector("#audioBird");
+    scoreSound = document.querySelector("#audioscore");
+    winSound = document.querySelector("#audiowin");
 
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext("2d");
@@ -160,12 +161,19 @@ function changeLevel() {
             bub.vitessY = -level / 3;
         })
     }
+    if(level == 10){
+        pauseBgMusic();
+        winSound.play();
+        alert("Congratulations!!!");
+        location.reload();
+    }
 }
 //if bird touch the pig, earn 2 points and pig disappear
 function calculeScores() {
     pigs.forEach((p) => {
         if ((birdX + birdWidth - tolerance > p.centerX - p.radius) && (birdX + tolerance < p.centerX + p.radius)) {
             if ((birdY + birdHeight - tolerance > p.centerY - p.radius) && (birdY + tolerance < p.centerY + p.radius)) {
+                scoreSound.play();
                 score += 2;
                 p.centerX = Math.floor(Math.random() * (canvas.width - canvas.width / 2 + 1) + canvas.width / 2);
                 p.centerY = Math.floor(Math.random() * (canvas.height - flowHeight - flowHeight + 1) + flowHeight);
