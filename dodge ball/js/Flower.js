@@ -9,12 +9,10 @@ class Flower{
         this.vitesseY = 0; // en pixels par image d'animation
     }
 
-    draw(ctx) {
+    draw(ctx, flowerType) {
         ctx.save();
-
-        ctx.fillStyle = this.couleur;
-        ctx.fillRect(this.x, this.y, this.l, this.h);
-
+        ctx.drawImage(flowerType, this.x, this.y, this.l, this.h);
+        //ctx.drawImage(imageBottom, this.x, this.y, this.l, this.h);
         ctx.restore();
     }
 

@@ -16,12 +16,12 @@ function dessineEtDeplaceLesObjets(start) {
 
     if (start == 'true') {
         top_flowers.forEach((fl) => {
-            fl.draw(ctx);
+            fl.draw(ctx, imageTop);
             fl.move();
         })
 
         bottom_flowers.forEach((fl) => {
-            fl.draw(ctx);
+            fl.draw(ctx, imageBottom);
             fl.move();
         })
 
@@ -41,11 +41,11 @@ function dessineEtDeplaceLesObjets(start) {
         })
     } else {
         top_flowers.forEach((fl) => {
-            fl.draw(ctx);
+            fl.draw(ctx, imageTop);
         })
 
         bottom_flowers.forEach((fl) => {
-            fl.draw(ctx);
+            fl.draw(ctx, imageBottom);
         })
 
         top_bubbles.forEach((bub) => {

@@ -20,6 +20,8 @@ let imageBird = new Image();
 let birdVmax = 20;
 let birdX,birdY,birdWidth,birdHeight;
 let tolerance = 8;
+let imageTop = new Image();
+let imageBottom = new Image();
 let bgMusic;
 let birdSound;
 let start = 'false';
@@ -35,25 +37,21 @@ function init() {
     ctx = canvas.getContext("2d");
 
     imageObj.src = "img/background.jpg";
-    imageObj.onload = function () {
-        ctx.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);
-    };
 
     //bird parameters
     birdX = birdXinit = 50;
     birdY = birdYinit = 150;
     birdWidth = birdHeight = 40;
     imageBird.src = "img/bird1.png";
-    imageBird.onload = function(){
-        ctx.drawImage(imageBird,birdX,birdY,birdWidth,birdHeight);
-    }
-    
+
     //keyboard event
     window.onkeydown = traiteKeydown;
 
     //flowers and pigs parameters
     initPosFlow = 200;
     flowHeight = 60;
+    imageTop.src = "img/topflower.png";
+    imageBottom.src = "img/bottomflower.png";
     creerFlowers(6, initPosFlow, flowHeight);
     initPosBub = 230;
     creerBubbles(6, initPosBub);
@@ -120,7 +118,7 @@ function restart() {
 function drawBackground() {
     ctx.save();
     ctx.drawImage(imageObj, 0, 0, 1000, 500);
-    ctx.drawImage(imageBird,birdX,birdY,birdWidth,birdHeight);
+    ctx.drawImage(imageBird, birdX, birdY, birdWidth, birdHeight);
     ctx.restore();
 }
 
@@ -168,5 +166,3 @@ function calculeScores() {
         }
     })
 }
-
-
