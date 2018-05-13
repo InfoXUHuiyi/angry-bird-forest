@@ -2,7 +2,7 @@ window.onload = init;
 
 let canvas, ctx;
 let birdXinit, birdYinit;
-let initPosFlow,initPosBub,initPosPigx,initPosPigy;
+let initPosFlow, initPosBub, initPosPigx, initPosPigy;
 let flowHeight;
 let bottom_flowers = [];
 let top_flowers = [];
@@ -27,9 +27,13 @@ let start = 'false';
 let gapWidth = 200;
 let gapTopBottom = 100;
 let ratio;
+let audioContext;
+let analyser;
+let browser = 'other';
 
 function init() {
     console.log("page chargee");
+
     bgMusic = document.querySelector("#audioBackground");
     birdSound = document.querySelector("#audioBird");
     scoreSound = document.querySelector("#audioscore");
@@ -38,6 +42,7 @@ function init() {
     canvas = document.querySelector("#myCanvas");
     ctx = canvas.getContext("2d");
     optimizeDisplay();
+
     imageObj.src = "img/background.jpg";
 
     //bird parameters
@@ -51,7 +56,7 @@ function init() {
 
     //flowers and pigs parameters
     initPosFlow = 200;
-    flowHeight = 100;
+    flowHeight = 75;
     imageTop.src = "img/topflower.png";
     imageBottom.src = "img/bottomflower.png";
     creerFlowers(6, initPosFlow, flowHeight);
@@ -71,6 +76,7 @@ function init() {
 function startGame() {
     start = 'true';
     playBgMusic();
+    audioBrowser();
     requestAnimationFrame(animation);
 }
 

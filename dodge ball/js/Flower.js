@@ -1,5 +1,5 @@
-class Flower{
-    constructor(x, y, l, h, couleur){
+class Flower {
+    constructor(x, y, l, h, couleur) {
         this.x = x || 0;
         this.y = y || 0;
         this.l = l || 20;
@@ -11,8 +11,23 @@ class Flower{
 
     draw(ctx, flowerType) {
         ctx.save();
-        ctx.drawImage(flowerType, this.x, this.y, this.l, this.h);
-        //ctx.drawImage(imageBottom, this.x, this.y, this.l, this.h);
+        // dancing with background music
+        if ((start == 'true') && (browser != 'chrome')) {
+            analyser.getByteFrequencyData(dataArray);
+            var average = getAverageVolume(dataArray);
+            if (flowerType == imageTop) {
+                ctx.drawImage(flowerType, this.x, this.y, this.l, this.h + average);
+            } else {
+                ctx.drawImage(flowerType, this.x, this.y - average, this.l, this.h + average);
+            }
+        } else {
+            if (flowerType == imageTop) {
+                ctx.drawImage(flowerType, this.x, this.y, this.l, this.h + 25);
+            } else {
+                ctx.drawImage(flowerType, this.x, this.y - 25, this.l, this.h + 25);
+            }
+        }
+
         ctx.restore();
     }
 
