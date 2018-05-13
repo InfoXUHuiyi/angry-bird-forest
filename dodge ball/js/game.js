@@ -52,7 +52,7 @@ function init() {
 
     //flowers and pigs parameters
     initPosFlow = 200;
-    flowHeight = 60;
+    flowHeight = 100;
     imageTop.src = "img/topflower.png";
     imageBottom.src = "img/bottomflower.png";
     creerFlowers(6, initPosFlow, flowHeight);
