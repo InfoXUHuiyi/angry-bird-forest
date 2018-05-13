@@ -18,8 +18,10 @@ let chance = 3;
 let level = 1;
 let imageObj = new Image();
 let imageBird = new Image();
+let imageTop = new Image();
+let imageBottom = new Image();
 let birdVmax = 10;
-let birdX,birdY,birdWidth,birdHeight;
+let birdX, birdY, birdWidth, birdHeight;
 let tolerance = 10;
 let bgMusic;
 let birdSound;
@@ -36,25 +38,21 @@ function init() {
     ctx = canvas.getContext("2d");
 
     imageObj.src = "img/background.jpg";
-    imageObj.onload = function () {
-        ctx.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);
-    };
 
     //bird parameters
     birdX = 50;
     birdY = 150;
     birdWidth = birdHeight = 50;
     imageBird.src = "img/bird1.png";
-    imageBird.onload = function(){
-        ctx.drawImage(imageBird,birdX,birdY,birdWidth,birdHeight);
-    }
-    
+
     //keyboard event
     window.onkeydown = traiteKeydown;
 
     //flowers and pigs parameters
     initPosFlow = 200;
     flowHeight = 60;
+    imageTop.src = "img/topflower.png";
+    imageBottom.src = "img/bottomflower.png";
     creerFlowers(6, initPosFlow, flowHeight);
     initPosBub = 230;
     creerBubbles(6, initPosBub);
@@ -112,7 +110,7 @@ function restart() {
 function drawBackground() {
     ctx.save();
     ctx.drawImage(imageObj, 0, 0, 1000, 500);
-    ctx.drawImage(imageBird,birdX,birdY,birdWidth,birdHeight);
+    ctx.drawImage(imageBird, birdX, birdY, birdWidth, birdHeight);
     ctx.restore();
 }
 
@@ -150,7 +148,7 @@ function changeLevel() {
 }
 //if bird touch the pig, earn 2 points and pig disappear
 function calculeScores() {
-    pigs.forEach((p) => {        
+    pigs.forEach((p) => {
         if ((birdX + birdWidth > p.centerX - p.radius) && (birdX < p.centerX + p.radius)) {
             if ((birdY + birdHeight > p.centerY - p.radius) && (birdY < p.centerY + p.radius)) {
                 score += 2;
@@ -160,5 +158,3 @@ function calculeScores() {
         }
     })
 }
-
-
