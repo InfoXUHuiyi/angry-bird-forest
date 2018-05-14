@@ -1,4 +1,4 @@
-﻿README
+README
 
 projet nom:
 angry-bird-forest
@@ -57,13 +57,18 @@ et les musiques.
 
 -----------------------------------------------------------------------------------------------------------------------------
 POINTS FORTS
+Animate volume meters aux fleurs
 Jolie interface de jeu;
 Bonnes musiques;
 Haute jouabilité; 
 Facile à comprendre
+Variété de musique
 
 -----------------------------------------------------------------------------------------------------------------------------
 POINTS FAIBLES
+Peu de changement
+Niveau pas claire
+Pas beaucoup de changement
 faire les images se déplacer selon les rythmes de musique; 
 test de compatibilité;
 
